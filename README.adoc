@@ -1,12 +1,5 @@
-= Desktop v2
+=  The Bootiful Podcast Site Itself
 
+This site runs at http://bootifulpodcast.fm[bootifulpodcast.fm] or http://development.bootifulpodcast.fm[development.bootifulpodcast.fm]
 
-== A Big Rewrite
-
-The new architecture is spelled out by examining all the projects on github.com/bootiful-podcast that are suffixd with `-v2`:
-
-* `desktop-v2` - a Vue.js powered Studio environment for uploading and editing episodes
-* `processor-v2` - a Python-based podcast audio production
-* `api-v2` - an API to which the Studio environment connects
-* `deployment` - this contains infrastructure that is common to the system, including RabbitMQ and PostgreSQL
-
+The goal for this codebase is to obviate the need for the static site-generator module.
