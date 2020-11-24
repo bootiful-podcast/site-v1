@@ -1,7 +1,7 @@
 <style>
 @import url("https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css");
 @import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@200;300;400;700;900&display=swap');
-/*@import url('http://bootifulpodcast.fm/assets/css/site.min.css');*/
+
 @import url('assets/css/all.css');
 @import url('assets/css/audioplayer.css');
 @import url('assets/css/framework.css');
@@ -58,9 +58,7 @@
         <div class="container-fluid">
           <div class="logo">
             <a href="/">
-              <img src="/assets/images/logo-ne.png"
-
-                   alt="A Bootiful Podcast"/>
+              <img src="/assets/images/logo-ne.png" alt="A Bootiful Podcast"/>
             </a>
           </div>
           <ul class="nav-menu">
@@ -108,78 +106,87 @@
       </div>
       <div class="cover-decoration-bottom"></div>
     </header>
-    <!--    -->
+
     <section class="section" id="latest-podcasts">
       <div class="heading-section"><h5> Latest Podcasts</h5><a
           name="latest-episodes"></a></div>
       <div class="container-fluid">
         <div class="row">
-          <div class="col-md-4 col-sm-12">
-            <div class="latest-ep-item">
-              <div class="photo"><img src="/assets/images/default.jpg" alt=""/>
-              </div>
-              <div class="content"><h4><a
-                  href="#"> Spring Boot 2.4, and then living legend, CTO, and friend John Davies </a>
-              </h4>
-                <P><strong> 11/12/2020</strong></P>
-                <p>
-                <p>Hi, Spring fans! Welcome to another installment of a <em>Bootiful Podcast</em>! In this installment
-                  <a href="http://twitter.com/starbuxman">Josh Long (@starbuxman)</a> looks at the week that was, talks
-                  about the JUST released Spring Boot 2.4, and then talks to industry legend and larger-than-life friend
-                  <a href="http://twitter.com/jtdavies">John Davies (@jtdavies)</a></p>
-                <a href="#" id="top3-play-8453ecf1-6df9-4c36-aa7c-2614beec8c8b"
-                   class="listen-btn clicked"><span
-                    class="vid-icon-span"><i
-                    class="fas fa-play"></i></span>Listen
-                  Now</a>
-              </div>
+          <RecentEpisode v-for="p in top3" v-bind:key="p.id" v-bind:podcast="p"/>
+        </div>
+      </div>
+    </section>
+    <!--    -->
+    <section class="about">
+      <a name="about"></a>
+      <div class="container-fluid">
+        <div class="row justify-content-center">
+          <div class="col-md-10 col-12"><p>Josh Long (<a target="_blank"
+                                                         href="http://twitter.com/starbuxman"><span
+              class="text-primary">@starbuxman</span></a>), the host of
+            <EM>A Bootiful Podcast</EM>, is a Spring
+            Developer Advocate at VMWare. Josh is a
+            <a target="_blank"
+               href="https://community.oracle.com/docs/DOC-922857">Java
+              Champion</a>,
+            author of 6 books including <a target="_blank"
+                                           href="http://CloudNativeJava.io">
+              <span class="text-underline">O'Reilly's Cloud Native Java: Designing Resilient Systems with Spring Boot, Spring Cloud , and Cloud Foundry</span>
+            </a> and the upcoming <a href="http://ReactiveSpring.io"
+                                     target="_blank"><span
+                class="text-underline">Reactive Spring</span></a>)
+            and numerous best-selling video trainings (including <a
+                target="_blank"
+                href="http://joshlong.com/livelessons.html"><span
+                class="text-underline">Building Microservices with Spring Boot Livelessons</span></a>
+            with
+            Spring Boot co-founder Phil Webb), and an open-source
+            contributor (Spring Boot, Spring Integration,
+            Spring Cloud, Activiti and Vaadin), a podcaster and a <a
+                target="_blank"
+                href="http://bit.ly/spring-tips-playlist"><span
+                class="text-underline">screencaster</span></a>
+            .</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!---->
+    <section class="section" id="podcasts-archive">
+
+      <div class="heading-section"><h5>All Podcasts</h5><a
+          name="all-podcasts"></a></div>
+      <div class="container-fluid">
+        <div class="row justify-content-center">
+          <div class="col-lg-11 col-md-12 col-12">
+            <div class="tab-nav-archive">
+              <ul class="nav nav-tabs" role="tablist">
+
+                <div v-for="year in years" :key="year.year ">
+
+                  <li>
+                    <a :id=" 'year-' + year.year + 'tab' " data-toggle="tab"
+                       @click="selectedYear = year.year "
+                       :class="'tab-pane-toggle ' +  getYearActiveClassName( year.year) "
+                       role="tab">{{ year.year }} Episodes</a>
+                  </li>
+                </div>
+
+              </ul>
             </div>
-          </div>
-          <div class="col-md-4 col-sm-12">
-            <div class="latest-ep-item">
-              <div class="photo"><img src="/assets/images/default.jpg" alt=""/>
-              </div>
-              <div class="content"><h4><a
-                  href="#"> Spring legend Thomas Risberg on JDBC, Spring Cloud Data Flow, Kubernetes and so much
-                more </a>
-              </h4>
-                <P><strong> 11/05/2020</strong></P>
-                <p>
-                <p>Hi, Spring fans! In this episode Josh talks to Spring legend <a href="http://twitter.com/trisberg">Thomas
-                  Risberg (@trisberg)</a>.</p>
-                <a href="#" id="top3-play-dc4a4262-a7e2-4af0-879d-328a57fd86b4"
-                   class="listen-btn clicked"><span
-                    class="vid-icon-span"><i
-                    class="fas fa-play"></i></span>Listen
-                  Now</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 col-sm-12">
-            <div class="latest-ep-item">
-              <div class="photo"><img src="/assets/images/default.jpg" alt=""/>
-              </div>
-              <div class="content"><h4><a
-                  href="#"> Spring Test Framework lead Sam Brannen </a>
-              </h4>
-                <P><strong> 10/29/2020</strong></P>
-                <p>
-                <p>Hi Spring fans! This week, <a href="http://twitter.com/starbuxman">Josh Long (@starbuxman)</a> talks
-                  to legendary Spring Test Framework lead and JUnit contributor <a
-                      href="http://twitter.com/sam_brannen">Sam Brannen (@sam_brannen)</a></p>
-                <a href="#" id="top3-play-a07248d7-4aa3-4e90-bb45-0c90ab8671f3"
-                   class="listen-btn clicked"><span
-                    class="vid-icon-span"><i
-                    class="fas fa-play"></i></span>Listen
-                  Now</a>
+
+            <div class="tab-content" v-for="year in years" :key="year.year ">
+              <div :class="'tab-pane fade show tab-pane-content ' + getYearActiveClassName(year.year) " role="tabpanel"
+                   :aria-labelledby="year" :id="'year-' + year.year  + '-content' ">
+                <div :key="episode.id" v-for="episode in year.episodes">
+                  <Episode :episode="episode"/>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </section>
-
-    <!--    -->
     <section class="section">
 
       <div class="heading-section">
@@ -241,11 +248,12 @@
         </div>
       </div>
     </footer>
-
-
   </div>
 </template>
 <script>
+
+import RecentEpisode from "@/RecentEpisode";
+import Episode from "@/Episode";
 
 export default {
 
@@ -255,18 +263,54 @@ export default {
   },
 
   async created() {
+
+    const cy = new Date().getFullYear()
+    this.currentYear = cy
+    this.selectedYear = cy
+
     console.info('Launching BootifulPodcast.fm ')
-    console.log( this.$store)
-    await this.$root.$data .podcastService.load()
+
+    function calculateYears(ps) {
+      const start = 2018
+      const years = [];
+      let ny = start
+      while (cy >= ny)
+        years.push(ny++)
+      years.sort((a, b) => b - a)
+      return years
+          .map((year) => {
+            return {year: year, episodes: ps.filter((p) => parseInt(p.dateAndTime.split('/')[2]) === year)}
+          })
+    }
+
+    const podcasts = await this.$root.$data.podcastService.load()
+    podcasts.sort((a, b) => {
+      return b.date - a.date
+    })
+    this.podcasts = podcasts
+    this.latest = podcasts[0]
+    this.top3 = [podcasts [0], podcasts [1], podcasts[2]]
+    this.years = calculateYears(this.podcasts)
   },
 
-  methods: {},
+  methods: {
+
+    getYearActiveClassName(year) {
+      return year === this.selectedYear ? 'active' : ''
+    },
+  },
 
   data() {
-    return {}
+    return {
+      currentYear: 0,
+      selectedYear: 0,
+      years: [],
+      top3: [],
+      podcasts: []
+    }
   },
 
-  components: {}
+  components: {Episode, RecentEpisode}
 
 }
 </script>
