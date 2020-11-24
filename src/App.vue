@@ -14,8 +14,13 @@
     <header class="top-bar" id="topBar">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-md-9">
-            <audio style="width: 100%" :src="selectedMp3" controls>
+          <div style=" border: 1px solid yellow " class="col-md-2">
+
+            <img height="50px" v-if="selected != null " :src="selected.episodePhotoUri "/>
+
+          </div>
+          <div class="col-md-7">
+            <audio id="audioPlayer" style="width: 100% ;" :src="selectedEpisodeUri" controls>
               Your browser does not support the audio element.
             </audio>
           </div>
@@ -259,15 +264,13 @@ export default {
   mounted() {
   },
 
-
   async created() {
 
+    console.info('Launching BootifulPodcast.fm ')
 
     const cy = new Date().getFullYear()
     this.currentYear = cy
     this.selectedYear = cy
-
-    console.info('Launching BootifulPodcast.fm ')
 
     function calculateYears(ps) {
       const start = 2018
@@ -290,26 +293,35 @@ export default {
     this.latest = podcasts[0]
     this.top3 = [podcasts [0], podcasts [1], podcasts[2]]
     this.years = calculateYears(this.podcasts)
-    this.audioElement.addEventListener('load', () => {
-      this.audioElement.play()
-    })
-    await this.loadPodcast(this.latest)
+
+    //await this.loadPodcast(this.latest)
   },
 
   methods: {
 
+    getAudioElement() {
+      return document.getElementById('audioPlayer')
+    },
+
+      calculateUrlForPodcast(podcast) {
+      // console.log('the podcast is ' + JSON.stringify(podcast))
+      return 'http://api.bootifulpodcast.online' + podcast.episodeUri
+    },
 
     async play(podcast) {
-      //    console.log('so you want me to play ' + podcast.id)
+
+      const element = this.getAudioElement()
+
+      console.assert(podcast != null)
+      console.assert(element != null)
       try {
-        await this.audioElement.pause()
+        await element.pause()
       } catch (e) {
         console.log('could not pause the audio')
       }
       await this.loadPodcast(podcast)
-
-      await this.audioElement.play()
-      return false
+      await element.play()
+      return true
     },
 
     async loadPodcast(podcast) {
@@ -318,12 +330,12 @@ export default {
       /// todo because the sample data points to production S3 buckets
       ///
 
-      this.playing = podcast
-      this.selectedMp3 = 'http://api.bootifulpodcast.online' + this.playing.episodeUri
+      this.selected = podcast
+      //this.selectedEpisodeUri = this.calculateUrlForPodcast(this.selected)
       // this.selectedMp3 = 'http://api.bootifulpodcast.online/podcasts/' + podcast.uid + '/produced-audio'
       // console.log('the new mp3 is ', this.selectedMp3)
 
-      await this.audioElement.load()
+      await this.getAudioElement().load()
     },
 
     getMenuClass() {
@@ -343,21 +355,30 @@ export default {
   },
 
   computed: {
-    audioElement: function () {
-      console.log('computing the audioElement...')
-      return document.getElementsByTagName('audio').item(0)
-    }
+    selectedEpisodeUri: function () {
+      const src = this.selected == null ? '' : this.calculateUrlForPodcast(this.selected)
+      console.log('returning selectedEpisodeUri ' + src)
+      return src
+    },
+    /*   audioElement: function () {
+         console.log('computing the audioElement...')
+         const elementsByTagName = document.getElementsByTagName('audio');
+         console.log('there are ' + elementsByTagName.length + " items")
+         //return elementsByTagName.item(0)
+         const result = document.getElementById('audioPlayer')
+         console.log('result ? ' + result)
+         return result
+       }*/
   },
 
   data() {
     return {
       menuOpen: false,
       playing: null,
-      // audioElement: null,
       currentYear: 0,
       selectedYear: 0,
       years: [],
-      selectedMp3: null,
+      selected: null,
       top3: [],
       podcasts: []
     }
