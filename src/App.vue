@@ -15,13 +15,9 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-9">
-            <div id="containerOfDataSources">
-              <!--
-                     This container stores all the data sources for the music player which,
-                     for reasons I will never understand, need to be in DIV elements in the DOM.
-                     I dynamically create those elements using JavaScript based on loaded data.
-                     -->
-            </div>
+            <audio style="width: 100%" :src="selectedMp3" controls>
+              Your browser does not support the audio element.
+            </audio>
           </div>
           <div class="col-md-3">
             <button class="navbar-toggler mobile-nav-btn" type="button"
@@ -30,7 +26,7 @@
                     data-target="#mobile-menu" aria-controls="mobile menu"
                     :aria-expanded="menuOpen"
                     aria-label="Toggle navigation">
-              <div   :class="getMenuClass()">
+              <div :class="getMenuClass()">
                 <span></span><span></span><span></span></div>
             </button>
             <div :class=" ' navbar-collapse mobile-menu-collapse ' + ( this.menuOpen ? '': 'collapse' )"
@@ -39,13 +35,13 @@
                 <li class="nav-item"><a class="nav-link" target="_blank"
                                         href="http://twitter.com/starbuxman">Twitter
                   (@starbuxman)</a></li>
-                <li class="nav-item"><a class="nav-link"  target="_blank"
+                <li class="nav-item"><a class="nav-link" target="_blank"
                                         href="http://twitter.com/BootifulPodcast">Twitter
                   (@BootifulPodcast)</a></li>
-                <li class="nav-item"><a class="nav-link"  target="_blank"
+                <li class="nav-item"><a class="nav-link" target="_blank"
                                         href="http://joshlong.com">Josh's
                   blog</a></li>
-                <li class="nav-item"><a class="nav-link"  target="_blank"
+                <li class="nav-item"><a class="nav-link" target="_blank"
                                         href="http://start.Spring.io">
                   My second favorite place on the internet </a></li>
               </ul>
@@ -255,6 +251,7 @@
 
 import RecentEpisode from "@/RecentEpisode";
 import Episode from "@/Episode";
+// import MusicPlayer from "@/MusicPlayer";
 
 export default {
 
@@ -265,7 +262,6 @@ export default {
 
 
   async created() {
-
 
 
     const cy = new Date().getFullYear()
@@ -295,10 +291,31 @@ export default {
     this.latest = podcasts[0]
     this.top3 = [podcasts [0], podcasts [1], podcasts[2]]
     this.years = calculateYears(this.podcasts)
+
+    this.changeAudio(this.top3[2])
+    console.log('the selectedMp3 is ', this.selectedMp3)
+
+    this.play()
   },
 
   methods: {
 
+    changeAudio(podcast) {
+      /*this.$root.$data.rootUrl */
+      this.selectedMp3 =  'http://api.bootifulpodcast.online' + podcast.episodeUri
+      // this.selectedMp3 = 'http://api.bootifulpodcast.online/podcasts/' + podcast.uid + '/produced-audio'
+      console.log( 'the new mp3 is ' , this.selectedMp3)
+      const audioEl = document.getElementsByTagName('audio').item(0)
+      audioEl.load()
+    },
+
+
+    play() {
+      console.log('trying to play ', this.selectedMp3)
+        // audioEl.setAttribute('src' , this.sel)
+
+      // audioEl.play()
+    },
     getMenuClass() {
       return (this.menuOpen ? 'open' : '') + ' hamburger-menu'
     },
@@ -321,6 +338,7 @@ export default {
       currentYear: 0,
       selectedYear: 0,
       years: [],
+      selectedMp3: null,
       top3: [],
       podcasts: []
     }

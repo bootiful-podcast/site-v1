@@ -32,6 +32,6 @@ console.log('mode: ', mode)
 
 const rootUrl = ((u) => (u.endsWith('/')) ? u : u + '/')(process.env.VUE_APP_SERVICE_ROOT)
 const podcastService = new PodcastService(rootUrl)
-const store = {podcastService: podcastService}
+const store = {podcastService: podcastService, rootUrl: rootUrl}
 
 new Vue({data: store, render: h => h(App)}).$mount('#app')
