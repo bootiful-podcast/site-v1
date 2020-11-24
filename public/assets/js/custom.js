@@ -3,6 +3,7 @@ $(document).ready(function () {
         $('.hamburger-menu').toggleClass('open');
     });
 });
+/*
 
 $(document).ready(function () {
     $('.tab-pane-toggle').each((index, element) => {
@@ -15,8 +16,9 @@ $(document).ready(function () {
         return true;
     });
 });
+*/
 
-$(document).ready(() => {
+/*$(document).ready(() => {
     $('#scrollTop').click(() => {
         window.scrollTo(window.scrollX, 0);
         return false;
@@ -25,8 +27,8 @@ $(document).ready(() => {
 
 $(document).ready(() => {
     $('.nav-link').attr('target', '_blank');
-});
-
+});*/
+ /*
 $(document).ready(() => {
     $("#scrollTop, .btn-slide").click(() => {
         const destination = $(this).attr('href');
@@ -34,7 +36,7 @@ $(document).ready(() => {
         return false;
     });
 });
-
+*/
 
 function Podcast(id, uid, title, uri, photo) {
     this.uid = uid;

@@ -26,25 +26,26 @@
           <div class="col-md-3">
             <button class="navbar-toggler mobile-nav-btn" type="button"
                     data-toggle="collapse"
+                    @click="toggleMenu()"
                     data-target="#mobile-menu" aria-controls="mobile menu"
-                    aria-expanded="false"
+                    :aria-expanded="menuOpen"
                     aria-label="Toggle navigation">
-              <div class="hamburger-menu">
+              <div   :class="getMenuClass()">
                 <span></span><span></span><span></span></div>
             </button>
-            <div class="collapse navbar-collapse mobile-menu-collapse"
+            <div :class=" ' navbar-collapse mobile-menu-collapse ' + ( this.menuOpen ? '': 'collapse' )"
                  id="mobile-menu">
               <ul class="navbar-nav mr-auto">
-                <li class="nav-item"><a class="nav-link"
+                <li class="nav-item"><a class="nav-link" target="_blank"
                                         href="http://twitter.com/starbuxman">Twitter
                   (@starbuxman)</a></li>
-                <li class="nav-item"><a class="nav-link"
+                <li class="nav-item"><a class="nav-link"  target="_blank"
                                         href="http://twitter.com/BootifulPodcast">Twitter
                   (@BootifulPodcast)</a></li>
-                <li class="nav-item"><a class="nav-link"
+                <li class="nav-item"><a class="nav-link"  target="_blank"
                                         href="http://joshlong.com">Josh's
                   blog</a></li>
-                <li class="nav-item"><a class="nav-link"
+                <li class="nav-item"><a class="nav-link"  target="_blank"
                                         href="http://start.Spring.io">
                   My second favorite place on the internet </a></li>
               </ul>
@@ -238,13 +239,13 @@
       <div class="container-fluid">
         <div class="row justify-content-center">
           <div class="col-md-4 col-sm-6">
-            <p class="copyrights"> All rights reserved for <EM>A Bootiful
-              Podcast</EM> 2019-2020 </p>
+            <p class="copyrights"> All rights reserved for <EM>A Bootiful Podcast</EM> 2019-2020 </p>
           </div>
-          <div class="col-md-4 col-hide"><a href="#top" id="scrollTop"
-                                            class="button-scroll-top"> <img
-              src="/assets/images/scrollTop.png"
-              alt="Scroll to the top of the page"/> </a></div>
+          <div class="col-md-4 col-hide">
+            <a href="#top" @click="scrollToTop" class="button-scroll-top">
+              <img src="/assets/images/scrollTop.png" alt="Scroll to the top of the page"/>
+            </a>
+          </div>
         </div>
       </div>
     </footer>
@@ -262,7 +263,10 @@ export default {
   mounted() {
   },
 
+
   async created() {
+
+
 
     const cy = new Date().getFullYear()
     this.currentYear = cy
@@ -295,6 +299,17 @@ export default {
 
   methods: {
 
+    getMenuClass() {
+      return (this.menuOpen ? 'open' : '') + ' hamburger-menu'
+    },
+    toggleMenu() {
+      this.menuOpen = !this.menuOpen
+    },
+    scrollToTop() {
+      window.scrollTo(window.scrollX, 0);
+      return false;
+    },
+
     getYearActiveClassName(year) {
       return year === this.selectedYear ? 'active' : ''
     },
@@ -302,6 +317,7 @@ export default {
 
   data() {
     return {
+      menuOpen: false,
       currentYear: 0,
       selectedYear: 0,
       years: [],
