@@ -26,6 +26,7 @@
         <div class="controls-episode">
           <ul>
             <li class="control-ep"><a
+                @click.prevent="$emit ('play', episode.id )"
                 id="'episode-play-'  +  episode.uid "
                 href="#">
               <div class="icon"><i class="fas fa-play"></i>

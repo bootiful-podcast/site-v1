@@ -14,11 +14,8 @@
         <p v-html="podcast.description">
           this is a description
         </p>
-        <a href="#" id="top3-play-dc4a4262-a7e2-4af0-879d-328a57fd86b4"
-           class="listen-btn clicked"><span
-            class="vid-icon-span"><i
-            class="fas fa-play"></i></span>Listen
-          Now</a>
+        <a @click.prevent="$emit ('play', podcast  )"
+           class="listen-btn clicked"><span class="vid-icon-span"><i class="fas fa-play"></i></span>Listen Now</a>
       </div>
     </div>
 

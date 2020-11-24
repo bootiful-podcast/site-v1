@@ -109,7 +109,7 @@
           name="latest-episodes"></a></div>
       <div class="container-fluid">
         <div class="row">
-          <RecentEpisode v-for="p in top3" v-bind:key="p.id" v-bind:podcast="p"/>
+          <RecentEpisode @play="play( p )" v-for="p in top3" v-bind:key="p.id" v-bind:podcast="p"/>
         </div>
       </div>
     </section>
@@ -126,8 +126,7 @@
             <a target="_blank"
                href="https://community.oracle.com/docs/DOC-922857">Java
               Champion</a>,
-            author of 6 books including <a target="_blank"
-                                           href="http://CloudNativeJava.io">
+            author of 6 books including <a target="_blank" href="http://CloudNativeJava.io">
               <span class="text-underline">O'Reilly's Cloud Native Java: Designing Resilient Systems with Spring Boot, Spring Cloud , and Cloud Foundry</span>
             </a> and the upcoming <a href="http://ReactiveSpring.io"
                                      target="_blank"><span
@@ -176,7 +175,7 @@
               <div :class="'tab-pane fade show tab-pane-content ' + getYearActiveClassName(year.year) " role="tabpanel"
                    :aria-labelledby="year" :id="'year-' + year.year  + '-content' ">
                 <div :key="episode.id" v-for="episode in year.episodes">
-                  <Episode :episode="episode"/>
+                  <Episode @play="play( episode)" :episode="episode"/>
                 </div>
               </div>
             </div>
@@ -291,31 +290,42 @@ export default {
     this.latest = podcasts[0]
     this.top3 = [podcasts [0], podcasts [1], podcasts[2]]
     this.years = calculateYears(this.podcasts)
-
-    this.changeAudio(this.top3[2])
-    console.log('the selectedMp3 is ', this.selectedMp3)
-
-    this.play()
+    this.audioElement.addEventListener('load', () => {
+      this.audioElement.play()
+    })
+    await this.loadPodcast(this.latest)
   },
 
   methods: {
 
-    changeAudio(podcast) {
-      /*this.$root.$data.rootUrl */
-      this.selectedMp3 =  'http://api.bootifulpodcast.online' + podcast.episodeUri
+
+    async play(podcast) {
+      //    console.log('so you want me to play ' + podcast.id)
+      try {
+        await this.audioElement.pause()
+      } catch (e) {
+        console.log('could not pause the audio')
+      }
+      await this.loadPodcast(podcast)
+
+      await this.audioElement.play()
+      return false
+    },
+
+    async loadPodcast(podcast) {
+      ///
+      /// todo replace this with the actual URL. right now i need the production URL
+      /// todo because the sample data points to production S3 buckets
+      ///
+
+      this.playing = podcast
+      this.selectedMp3 = 'http://api.bootifulpodcast.online' + this.playing.episodeUri
       // this.selectedMp3 = 'http://api.bootifulpodcast.online/podcasts/' + podcast.uid + '/produced-audio'
-      console.log( 'the new mp3 is ' , this.selectedMp3)
-      const audioEl = document.getElementsByTagName('audio').item(0)
-      audioEl.load()
+      // console.log('the new mp3 is ', this.selectedMp3)
+
+      await this.audioElement.load()
     },
 
-
-    play() {
-      console.log('trying to play ', this.selectedMp3)
-        // audioEl.setAttribute('src' , this.sel)
-
-      // audioEl.play()
-    },
     getMenuClass() {
       return (this.menuOpen ? 'open' : '') + ' hamburger-menu'
     },
@@ -332,9 +342,18 @@ export default {
     },
   },
 
+  computed: {
+    audioElement: function () {
+      console.log('computing the audioElement...')
+      return document.getElementsByTagName('audio').item(0)
+    }
+  },
+
   data() {
     return {
       menuOpen: false,
+      playing: null,
+      // audioElement: null,
       currentYear: 0,
       selectedYear: 0,
       years: [],
