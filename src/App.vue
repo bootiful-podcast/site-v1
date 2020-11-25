@@ -163,7 +163,7 @@
     <!---->
     <section class="section" id="podcasts-archive">
 
-      <div class="heading-section"><h5>All Podcasts</h5><a
+      <div class="heading-section"><h5>All Episodes </h5><a
           name="all-podcasts"></a></div>
       <div class="container-fluid">
         <div class="row justify-content-center">
