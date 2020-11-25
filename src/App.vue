@@ -11,56 +11,58 @@
 <template>
   <div>
     <a name="top"></a>
+
+
     <header class="top-bar" id="topBar">
-      <div class="container-fluid">
 
 
-        <div v-if="selected != null " class="row" style=" border: 1px solid yellow; text-align: center ; color : white">
-          <div class="col-md-12 align-content-center">{{ selected.title }}</div>
-        </div>
+      <div class="audio-title-container">
+        <div v-if="selected != null " class="col-md-12 align-content-center">{{ selected.title }}</div>
+      </div>
 
 
-        <div class="row player">
-          <div class="col-md-2">
-            <img v-if="selected != null " :src="selected.episodePhotoUri "/>
-          </div>
+      <div class="audio-image-container">
+        <img v-if="selected != null " :src="selected.episodePhotoUri "/>
+      </div>
 
-          <div class="col-md-10">
-            <audio v-if="selected != null " id="audioPlayer" class="audioPlayer" :src="selectedEpisodeUri" controls>
-              Your browser does not support the audio element.
-            </audio>
-          </div>
-          <div class="col-md-2">
-            <button class="navbar-toggler mobile-nav-btn" type="button"
-                    data-toggle="collapse"
-                    @click="toggleMenu()"
-                    data-target="#mobile-menu" aria-controls="mobile menu"
-                    :aria-expanded="menuOpen"
-                    aria-label="Toggle navigation">
-              <div :class="getMenuClass()">
-                <span></span><span></span><span></span></div>
-            </button>
-            <div :class=" ' navbar-collapse mobile-menu-collapse ' + ( this.menuOpen ? '': 'collapse' )"
-                 id="mobile-menu">
-              <ul class="navbar-nav mr-auto">
-                <li class="nav-item"><a class="nav-link" target="_blank"
-                                        href="http://twitter.com/starbuxman">Twitter
-                  (@starbuxman)</a></li>
-                <li class="nav-item"><a class="nav-link" target="_blank"
-                                        href="http://twitter.com/BootifulPodcast">Twitter
-                  (@BootifulPodcast)</a></li>
-                <li class="nav-item"><a class="nav-link" target="_blank"
-                                        href="http://joshlong.com">Josh's
-                  blog</a></li>
-                <li class="nav-item"><a class="nav-link" target="_blank"
-                                        href="http://start.Spring.io">
-                  My second favorite place on the internet </a></li>
-              </ul>
-            </div>
-          </div>
+      <div class="audio-audio-container">
+        <audio class="audio-player" :src="selectedEpisodeUri" controls>
+          Your browser does not support the audio element.
+        </audio>
+      </div>
+
+
+      <div class="menu-bar-container">
+        <button class="navbar-toggler mobile-nav-btn" type="button"
+                data-toggle="collapse"
+                @click="toggleMenu()"
+                data-target="#mobile-menu" aria-controls="mobile menu"
+                :aria-expanded="menuOpen"
+                aria-label="Toggle navigation">
+          <div :class="getMenuClass()">
+            <span></span><span></span><span></span></div>
+        </button>
+        <div :class=" ' navbar-collapse mobile-menu-collapse ' + ( this.menuOpen ? '': 'collapse' )"
+             id="mobile-menu">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item"><a class="nav-link" target="_blank"
+                                    href="http://twitter.com/starbuxman">Twitter
+              (@starbuxman)</a></li>
+            <li class="nav-item"><a class="nav-link" target="_blank"
+                                    href="http://twitter.com/BootifulPodcast">Twitter
+              (@BootifulPodcast)</a></li>
+            <li class="nav-item"><a class="nav-link" target="_blank"
+                                    href="http://joshlong.com">Josh's
+              blog</a></li>
+            <li class="nav-item"><a class="nav-link" target="_blank"
+                                    href="http://start.Spring.io">
+              My second favorite place on the internet </a></li>
+          </ul>
         </div>
       </div>
+
     </header>
+
     <header class="header" id="header">
       <nav class="navbar">
         <div class="container-fluid">
@@ -268,13 +270,11 @@ export default {
 
   async mounted() {
 
-    console.log('mounted?')
     // await this.loadPodcast(this.latest)
 
   },
 
   async created() {
-    console.log('created?')
 
     console.info('Launching BootifulPodcast.fm ')
 
@@ -307,7 +307,7 @@ export default {
 
   methods: {
     getAudioElement() {
-      return document.getElementsByClassName('audioPlayer').item(0)
+      return document.getElementsByClassName('audio-player').item(0)
     },
     calculateUrlForPodcast(podcast) {
       return 'http://api.bootifulpodcast.online' + podcast.episodeUri
@@ -353,15 +353,7 @@ export default {
       console.log('returning selectedEpisodeUri ' + src)
       return src
     },
-    /*   audioElement: function () {
-         console.log('computing the audioElement...')
-         const elementsByTagName = document.getElementsByTagName('audio');
-         console.log('there are ' + elementsByTagName.length + " items")
-         //return elementsByTagName.item(0)
-         const result = document.getElementById('audioPlayer')
-         console.log('result ? ' + result)
-         return result
-       }*/
+
   },
 
   data() {

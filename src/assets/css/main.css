@@ -189,16 +189,60 @@ img {
      2. HEADER
 ----------------------------------------------------- */
 
+.audio-title-container {
+    grid-area: title;
+    color: white;
+    padding-left: 1em;
+    align-self: center;
+}
+
+.audio-audio-container {
+    grid-area: audio;
+    align-self: center;
+    padding-left: 1em;
+}
+.audio-audio-container >  audio {
+    width: 100%;
+}
+.audio-image-container {
+    grid-area: photo;
+}
+
+.menu-bar-container {
+    grid-area: menu;
+}
 
 header.top-bar {
     position: fixed;
     top: 0;
     width: 100%;
     background: #272d35;
-    height: 120px;
-    line-height: 60px;
+    /*height: 120px;*/
+    /*line-height: 60px;*/
     clear: both;
     z-index: 99999;
+
+
+    /* added this to refactor the audio panel at the top */
+    /*
+    audio-title-container
+    audio-image-container
+    audio-audio-container
+    menu-bar-container
+    */
+    /*border: 5px solid red;*/
+    display: grid;
+    grid-template-areas:
+    "  photo title menu "
+    "  photo audio menu ";
+
+    grid-template-columns: 100px  1fr 70px;
+    grid-template-rows: 50px 50px;
+
+    /*
+    */
+
+
 }
 
 
@@ -258,9 +302,10 @@ button.mobile-nav-btn {
     background: #262d35;
     position: absolute;
     width: 300px;
-    right: 5%;
+    right: 1%;
     top: 60px;
     z-index: 99999;
+    border: 3px solid white ;
 
 }
 
@@ -409,7 +454,7 @@ header.header {
     width: 100%;
     height: 100vh;
     max-height: 1080px;
-    margin-top: 60px;
+    margin-top: 100px;
 }
 
 nav.navbar {
