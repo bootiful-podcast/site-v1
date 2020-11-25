@@ -7,7 +7,7 @@ export ENV_SUB_DOMAIN=$( [ $BP_MODE_LOWERCASE = "production" ] && echo ""  || ec
 
 echo "The ENV_SUB_DOMAIN=$ENV_SUB_DOMAIN"
 
-export APP_NAME=studio
+export APP_NAME=site
 export PROJECT_ID=${GCLOUD_PROJECT}
 
 cd $(dirname $0)/..
@@ -51,4 +51,4 @@ echo "finished push"
 kubectl apply -f ${ROOT_DIR}/deploy/deployment.yaml
 kubectl patch deployment studio -p "{\"spec\": {\"template\": {\"metadata\": { \"labels\": {  \"redeploy\": \"$(date +%s)\"}}}}}"
 
-kubectl get service $APP_NAME | grep $APP_NAME || kubectl apply -f ${ROOT_DIR}/deploy/deployment-service.yaml
+kubectl apply -f ${ROOT_DIR}/deploy/deployment-service.yaml

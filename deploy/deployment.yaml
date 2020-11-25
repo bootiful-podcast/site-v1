@@ -3,23 +3,23 @@ kind: Deployment
 
 metadata:
   labels:
-    app: studio
-  name: studio
+    app: site
+  name: site
 
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app:  studio
+      app:  site
   template:
     metadata:
       labels:
-        app: studio
+        app: site
     spec:
       containers:
-        - image: gcr.io/bootiful/studio
+        - image: gcr.io/bootiful/site
           imagePullPolicy: Always
-          name:  studio
+          name:  site
           env:
             - name: PORT
               value: "8080"
