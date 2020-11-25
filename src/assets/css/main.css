@@ -195,7 +195,7 @@ header.top-bar {
     top: 0;
     width: 100%;
     background: #272d35;
-    height: 60px;
+    height: 120px;
     line-height: 60px;
     clear: both;
     z-index: 99999;
@@ -536,8 +536,19 @@ nav.navbar {
     float: right;
 }
 
+.player {
+}
+
+.player img {
+    height: 50px
+}
+
+.player .audioPlayer {
+    width: 100%;
+}
+
 .caption h1 {
-    font-size: 3vh ;
+    font-size: 3vh;
     max-font-size: 300px;
     font-weight: 800;
     color: #fff;
@@ -1367,7 +1378,7 @@ header.top-bar .navbar-collapse > ul > li:last-child a:hover {
 
 .podcast-app-image {
     height: 100px;
-    padding: 10px ;
+    padding: 10px;
 }
 
 #contact-section {

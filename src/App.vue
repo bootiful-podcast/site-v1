@@ -13,18 +13,24 @@
     <a name="top"></a>
     <header class="top-bar" id="topBar">
       <div class="container-fluid">
-        <div class="row">
-          <div style=" border: 1px solid yellow " class="col-md-2">
 
-            <img height="50px" v-if="selected != null " :src="selected.episodePhotoUri "/>
 
+        <div v-if="selected != null " class="row" style=" border: 1px solid yellow; text-align: center ; color : white">
+          <div class="col-md-12 align-content-center">{{ selected.title }}</div>
+        </div>
+
+
+        <div class="row player">
+          <div class="col-md-2">
+            <img v-if="selected != null " :src="selected.episodePhotoUri "/>
           </div>
-          <div class="col-md-7">
-            <audio id="audioPlayer" style="width: 100% ;" :src="selectedEpisodeUri" controls>
+
+          <div class="col-md-10">
+            <audio v-if="selected != null " id="audioPlayer" class="audioPlayer" :src="selectedEpisodeUri" controls>
               Your browser does not support the audio element.
             </audio>
           </div>
-          <div class="col-md-3">
+          <div class="col-md-2">
             <button class="navbar-toggler mobile-nav-btn" type="button"
                     data-toggle="collapse"
                     @click="toggleMenu()"
@@ -255,16 +261,20 @@
 
 import RecentEpisode from "@/RecentEpisode";
 import Episode from "@/Episode";
-// import MusicPlayer from "@/MusicPlayer";
 
 export default {
 
   name: 'App',
 
-  mounted() {
+  async mounted() {
+
+    console.log('mounted?')
+    // await this.loadPodcast(this.latest)
+
   },
 
   async created() {
+    console.log('created?')
 
     console.info('Launching BootifulPodcast.fm ')
 
@@ -293,25 +303,17 @@ export default {
     this.latest = podcasts[0]
     this.top3 = [podcasts [0], podcasts [1], podcasts[2]]
     this.years = calculateYears(this.podcasts)
-
-    //await this.loadPodcast(this.latest)
   },
 
   methods: {
-
     getAudioElement() {
-      return document.getElementById('audioPlayer')
+      return document.getElementsByClassName('audioPlayer').item(0)
     },
-
-      calculateUrlForPodcast(podcast) {
-      // console.log('the podcast is ' + JSON.stringify(podcast))
+    calculateUrlForPodcast(podcast) {
       return 'http://api.bootifulpodcast.online' + podcast.episodeUri
     },
-
     async play(podcast) {
-
       const element = this.getAudioElement()
-
       console.assert(podcast != null)
       console.assert(element != null)
       try {
@@ -325,19 +327,10 @@ export default {
     },
 
     async loadPodcast(podcast) {
-      ///
-      /// todo replace this with the actual URL. right now i need the production URL
-      /// todo because the sample data points to production S3 buckets
-      ///
-
       this.selected = podcast
-      //this.selectedEpisodeUri = this.calculateUrlForPodcast(this.selected)
-      // this.selectedMp3 = 'http://api.bootifulpodcast.online/podcasts/' + podcast.uid + '/produced-audio'
-      // console.log('the new mp3 is ', this.selectedMp3)
-
+      console.assert(this.getAudioElement() != null)
       await this.getAudioElement().load()
     },
-
     getMenuClass() {
       return (this.menuOpen ? 'open' : '') + ' hamburger-menu'
     },
