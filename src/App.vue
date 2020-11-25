@@ -34,11 +34,11 @@
 
       <div class="menu-bar-container">
         <div class="navbar-toggler mobile-nav-btn"
-                data-toggle="collapse"
-                @click="toggleMenu()"
-                data-target="#mobile-menu" aria-controls="mobile menu"
-                :aria-expanded="menuOpen"
-                aria-label="Toggle navigation">
+             data-toggle="collapse"
+             @click="toggleMenu()"
+             data-target="#mobile-menu" aria-controls="mobile menu"
+             :aria-expanded="menuOpen"
+             aria-label="Toggle navigation">
           <div :class="getMenuClass()">
             <span></span><span></span><span></span></div>
         </div>
@@ -122,7 +122,8 @@
           name="latest-episodes"></a></div>
       <div class="container-fluid">
         <div class="row">
-          <RecentEpisode @play="play( p )" v-for="p in top3" v-bind:key="p.id" v-bind:podcast="p"/>
+          <RecentEpisode :selected="selected != null && selected.id === p.id && playing "
+                 @pause="pause( p )" @play="play(p )" v-for="p in top3" v-bind:key="p.id" v-bind:podcast="p"/>
         </div>
       </div>
     </section>
@@ -135,14 +136,14 @@
                                                          href="http://twitter.com/starbuxman"><span
               class="text-primary">@starbuxman</span></a>), the host of
             <EM>A Bootiful Podcast</EM>, is a Spring
-            Developer Advocate at VMWare. Josh is a
+            Developer Advocate at VMware. Josh is a
             <a target="_blank"
                href="https://community.oracle.com/docs/DOC-922857">Java
               Champion</a>,
             author of 6 books including <a target="_blank" href="http://CloudNativeJava.io">
               <span class="text-underline">O'Reilly's Cloud Native Java: Designing Resilient Systems with Spring Boot, Spring Cloud , and Cloud Foundry</span>
-            </a> and the upcoming <a href="http://ReactiveSpring.io"
-                                     target="_blank"><span
+            </a> and the <a href="http://ReactiveSpring.io"
+                            target="_blank"><span
                 class="text-underline">Reactive Spring</span></a>)
             and numerous best-selling video trainings (including <a
                 target="_blank"
@@ -188,7 +189,9 @@
               <div :class="'tab-pane fade show tab-pane-content ' + getYearActiveClassName(year.year) " role="tabpanel"
                    :aria-labelledby="year" :id="'year-' + year.year  + '-content' ">
                 <div :key="episode.id" v-for="episode in year.episodes">
-                  <Episode @play="play( episode)" :episode="episode"/>
+                  <Episode :selected="selected != null && selected.id === episode.id && playing "
+                           @pause="pause(episode)"
+                           @play="play( episode)" :episode="episode"/>
                 </div>
               </div>
             </div>
@@ -312,6 +315,22 @@ export default {
     calculateUrlForPodcast(podcast) {
       return 'http://api.bootifulpodcast.online' + podcast.episodeUri
     },
+    async pause(podcast) {
+
+      if (this.selected !== null && this.selected.id !== podcast.id) {
+        return
+      }
+
+      const element = this.getAudioElement()
+      try {
+        await element.pause()
+      } catch (e) {
+        console.log('deleting ' + e)
+      }
+
+      this.playing = false
+      // this.selected = null
+    },
     async play(podcast) {
       const element = this.getAudioElement()
       console.assert(podcast != null)
@@ -321,8 +340,11 @@ export default {
       } catch (e) {
         console.log('could not pause the audio')
       }
-      await this.loadPodcast(podcast)
+      if (this.selected === null || this.selected.id !== podcast.id) {
+        await this.loadPodcast(podcast)
+      }
       await element.play()
+      this.playing = true
       return true
     },
 
@@ -358,8 +380,9 @@ export default {
 
   data() {
     return {
+
       menuOpen: false,
-      playing: null,
+      playing: false,
       currentYear: 0,
       selectedYear: 0,
       years: [],

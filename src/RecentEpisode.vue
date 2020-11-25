@@ -14,8 +14,11 @@
         <p v-html="podcast.description">
           this is a description
         </p>
-        <a @click.prevent="$emit ('play', podcast  )"
-           class="listen-btn clicked"><span class="vid-icon-span"><i class="fas fa-play"></i></span>Listen Now</a>
+
+        <div>
+          <i @click.prevent="$emit ('play', podcast )" v-if="selected === false" class="fas fa-play"></i>
+          <i @click.prevent="$emit ('pause', podcast  )" v-if="selected === true" class="fas fa-pause"></i>
+        </div>
       </div>
     </div>
 
@@ -27,7 +30,7 @@ export default {
 
   name: 'RecentEpisode',
 
-  props: ['podcast'],
+  props: ['podcast', 'selected'],
 
   mounted() {
   },

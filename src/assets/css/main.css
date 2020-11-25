@@ -199,11 +199,14 @@ img {
 .audio-audio-container {
     grid-area: audio;
     align-self: center;
-    padding-left: 1em;padding-bottom: 10px;
+    padding-left: 1em;
+    padding-bottom: 10px;
 }
-.audio-audio-container >  audio {
+
+.audio-audio-container > audio {
     width: 100%;
 }
+
 .audio-image-container {
     grid-area: photo;
 }
@@ -211,7 +214,7 @@ img {
 .menu-bar-container {
     grid-area: menu;
     align-self: center;
-   padding-left : 10px  ;
+    padding-left: 10px;
 }
 
 header.top-bar {
@@ -219,48 +222,18 @@ header.top-bar {
     top: 0;
     width: 100%;
     background: #272d35;
-    /*height: 120px;*/
-    /*line-height: 60px;*/
     clear: both;
     z-index: 99999;
-
-
-    /* added this to refactor the audio panel at the top */
-    /*
-    audio-title-container
-    audio-image-container
-    audio-audio-container
-    menu-bar-container
-    */
-    /*border: 5px solid red;*/
     display: grid;
     grid-template-areas:
     "  photo title menu "
     "  photo audio menu ";
-
     grid-template-columns: 100px  1fr 80px;
     grid-template-rows: 50px 50px;
-
-    /*
-    */
-
-
 }
-
-
-/*
-header.top-bar {
-    background: #272d35;
-    height: 60px;
-    line-height: 60px;
-    width: 100%;
-    clear: both;
-}
-*/
 
 
 .podcast-bar {
-    /* float:left; */
 }
 
 .podcast-bar ul li {
@@ -307,7 +280,7 @@ button.mobile-nav-btn {
     right: 1%;
     top: 110px;
     z-index: 99999;
-    border: 3px solid white ;
+    border: 3px solid white;
 
 }
 

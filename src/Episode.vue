@@ -25,14 +25,14 @@
       <div class="col-lg-3 col-md-4">
         <div class="controls-episode">
           <ul>
-            <li class="control-ep"><a
-                @click.prevent="$emit ('play', episode.id )"
-                id="'episode-play-'  +  episode.uid "
-                href="#">
-              <div class="icon"><i class="fas fa-play"></i>
+            <li class="control-ep">
+              <div class="icon">
+
+                <i @click.prevent="$emit ('play', episode  )" v-if="selected === false" class="fas fa-play"></i>
+                <i @click.prevent="$emit ('pause', episode  )" v-if="selected === true" class="fas fa-pause"></i>
               </div>
               <span class="play-status" id="'episode-play-' + episode.uid +'-status' "></span>
-            </a>
+
             </li>
           </ul>
         </div>
@@ -47,12 +47,12 @@ export default {
 
   name: 'Episode',
 
-  props: ['episode', 'active'],
+  props: ['episode', 'selected', 'active'],
 
   mounted() {
   },
 
-  async created() {
+  created() {
 
 
   },
