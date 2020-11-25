@@ -199,7 +199,7 @@ img {
 .audio-audio-container {
     grid-area: audio;
     align-self: center;
-    padding-left: 1em;
+    padding-left: 1em;padding-bottom: 10px;
 }
 .audio-audio-container >  audio {
     width: 100%;
@@ -210,6 +210,8 @@ img {
 
 .menu-bar-container {
     grid-area: menu;
+    align-self: center;
+   padding-left : 10px  ;
 }
 
 header.top-bar {
@@ -236,7 +238,7 @@ header.top-bar {
     "  photo title menu "
     "  photo audio menu ";
 
-    grid-template-columns: 100px  1fr 70px;
+    grid-template-columns: 100px  1fr 80px;
     grid-template-rows: 50px 50px;
 
     /*
@@ -303,7 +305,7 @@ button.mobile-nav-btn {
     position: absolute;
     width: 300px;
     right: 1%;
-    top: 60px;
+    top: 110px;
     z-index: 99999;
     border: 3px solid white ;
 

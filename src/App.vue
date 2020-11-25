@@ -33,7 +33,7 @@
 
 
       <div class="menu-bar-container">
-        <button class="navbar-toggler mobile-nav-btn" type="button"
+        <div class="navbar-toggler mobile-nav-btn"
                 data-toggle="collapse"
                 @click="toggleMenu()"
                 data-target="#mobile-menu" aria-controls="mobile menu"
@@ -41,7 +41,7 @@
                 aria-label="Toggle navigation">
           <div :class="getMenuClass()">
             <span></span><span></span><span></span></div>
-        </button>
+        </div>
         <div :class=" ' navbar-collapse mobile-menu-collapse ' + ( this.menuOpen ? '': 'collapse' )"
              id="mobile-menu">
           <ul class="navbar-nav mr-auto">
