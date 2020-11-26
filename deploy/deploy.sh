@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 
 set -e
-set -o pipefail
 
-export ENV_SUB_DOMAIN=$( [ $BP_MODE_LOWERCASE = "production" ] && echo ""  || echo "${BP_MODE_LOWERCASE}.")
+export BP_MODE_LOWERCASE=${BP_MODE_LOWERCASE:-development}
+export ENV_SUB_DOMAIN=$( [ "${BP_MODE_LOWERCASE}" = "production" ] && echo ""  || echo "${BP_MODE_LOWERCASE}.")
 
-echo "The ENV_SUB_DOMAIN=$ENV_SUB_DOMAIN"
+echo "The ENV_SUB_DOMAIN=${ENV_SUB_DOMAIN}"
+echo "BP_MODE_LOWERCASE=${BP_MODE_LOWERCASE}"
 
 export APP_NAME=site
 export PROJECT_ID=${GCLOUD_PROJECT}

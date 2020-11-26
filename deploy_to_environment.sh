@@ -28,6 +28,7 @@ function deploy_system_app() {
 
 export BP_MODE_LOWERCASE=${1:-development}
 export GH_PERSONAL_ACCESS_TOKEN=${GH_PERSONAL_ACCESS_TOKEN:-$GITHUB_PERSONAL_ACCESS_TOKEN}
+export APP=${2:-deployment}
 
 git commit -am "$(date)" && git push || echo "nothing to commit and push.."
-deploy_system_app deployment
+deploy_system_app $APP
