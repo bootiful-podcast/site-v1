@@ -3,7 +3,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@200;300;400;700;900&display=swap');
 
 @import url('assets/css/all.css');
-@import url('assets/css/audioplayer.css');
+/*@import url('assets/css/audioplayer.css');*/
 @import url('assets/css/framework.css');
 @import url('assets/css/responsive.css');
 @import url('assets/css/main.css');
