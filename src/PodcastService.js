@@ -4,7 +4,6 @@ export default class PodcastService {
 
   constructor(podcastApiUriRoot) {
     this.podcastApiUrl = podcastApiUriRoot
-    console.log('the podcast API URL is ' + podcastApiUriRoot + '.')
   }
 
   async load() {

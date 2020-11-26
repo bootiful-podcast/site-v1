@@ -123,7 +123,7 @@
       <div class="container-fluid">
         <div class="row">
           <RecentEpisode :selected="selected != null && selected.id === p.id && playing "
-                 @pause="pause( p )" @play="play(p )" v-for="p in top3" v-bind:key="p.id" v-bind:podcast="p"/>
+                         @pause="pause( p )" @play="play(p )" v-for="p in top3" v-bind:key="p.id" v-bind:podcast="p"/>
         </div>
       </div>
     </section>
@@ -272,9 +272,6 @@ export default {
   name: 'App',
 
   async mounted() {
-
-    // await this.loadPodcast(this.latest)
-
   },
 
   async created() {
@@ -289,8 +286,9 @@ export default {
       const start = 2018
       const years = [];
       let ny = start
-      while (cy >= ny)
+      while (cy >= ny) {
         years.push(ny++)
+      }
       years.sort((a, b) => b - a)
       return years
           .map((year) => {
@@ -304,7 +302,7 @@ export default {
     })
     this.podcasts = podcasts
     this.latest = podcasts[0]
-    this.top3 = [podcasts [0], podcasts [1], podcasts[2]]
+    this.top3 = [podcasts [0], podcasts[1], podcasts[2]]
     this.years = calculateYears(this.podcasts)
   },
 
@@ -313,7 +311,9 @@ export default {
       return document.getElementsByClassName('audio-player').item(0)
     },
     calculateUrlForPodcast(podcast) {
-      return 'http://api.bootifulpodcast.online' + podcast.episodeUri
+      const url = this.$root.$data.rootUrl + podcast.episodeUri.substring(1, podcast.episodeUri.length)
+      console.log('the url is ', url)
+      return url
     },
     async pause(podcast) {
 
