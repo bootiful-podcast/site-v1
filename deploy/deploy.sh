@@ -49,6 +49,6 @@ docker push ${GCR_IMAGE_NAME}
 echo "finished push"
 
 kubectl apply -f ${ROOT_DIR}/deploy/deployment.yaml
-kubectl patch deployment studio -p "{\"spec\": {\"template\": {\"metadata\": { \"labels\": {  \"redeploy\": \"$(date +%s)\"}}}}}"
+kubectl patch deployment $APP_NAME -p "{\"spec\": {\"template\": {\"metadata\": { \"labels\": {  \"redeploy\": \"$(date +%s)\"}}}}}"
 
 kubectl apply -f ${ROOT_DIR}/deploy/deployment-service.yaml
