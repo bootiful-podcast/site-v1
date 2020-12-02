@@ -1,0 +1,16 @@
+---
+resources:
+  - service.yaml
+  - deployment.yaml
+  - certificate.yaml
+  - ingress.yaml
+
+namespace: development
+
+commonLabels:
+  env: development
+  app: site
+
+secretGenerator:
+  - name: site-secrets
+    env: site-secrets.env
