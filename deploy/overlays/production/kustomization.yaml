@@ -1,17 +1,12 @@
 ---
+bases:
+  - ../development/
+
 resources:
-  - service.yaml
-  - deployment.yaml
   - certificate.yaml
   - ingress.yaml
 
-
-namespace: development
-
 commonLabels:
-  env: development
-  app: configuration
+  env: production
 
-secretGenerator:
-  - name: configuration-secrets
-    env: configuration-secrets.env
+namespace: production
