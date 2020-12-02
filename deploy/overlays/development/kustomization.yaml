@@ -10,7 +10,3 @@ namespace: development
 commonLabels:
   env: development
   app: site
-
-secretGenerator:
-  - name: site-secrets
-    env: site-secrets.env
