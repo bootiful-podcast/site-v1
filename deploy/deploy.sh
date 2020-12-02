@@ -18,14 +18,12 @@ echo "BP_MODE_LOWERCASE=${BP_MODE_LOWERCASE}"
 cd $(dirname $0)/..
 ROOT_DIR=$(pwd)
 cd $ROOT_DIR
+rm $PROD_ENV_FILE
 
 rm -rf $ROOT_DIR/build
 rm -rf $ROOT_DIR/dist
 
 PROD_ENV_FILE=${ROOT_DIR}/.env.production
-
-rm $PROD_ENV_FILE
-
 touch $PROD_ENV_FILE
 echo "VUE_APP_SERVICE_ROOT=https://api.${ENV_SUB_DOMAIN}bootifulpodcast.fm" >> ${PROD_ENV_FILE}
 echo "VUE_APP_GIT_HASH=${GITHUB_SHA}" >> ${PROD_ENV_FILE}
@@ -56,9 +54,8 @@ echo "finished push"
 
 
 
-#kubectl apply -f ${ROOT_DIR}/deploy/deployment.yaml
-#kubectl apply -f ${ROOT_DIR}/deploy/deployment-service.yaml
-
-
+export RESERVED_IP_NAME=site-${BP_MODE_LOWERCASE}-ip
+gcloud compute addresses list --format json | jq '.[].name' -r | grep $RESERVED_IP_NAME ||
+  gcloud compute addresses create $RESERVED_IP_NAME --global
 kubectl apply -k ${OD}
 #kubectl patch deployment $APP_NAME -p "{\"spec\": {\"template\": {\"metadata\": { \"labels\": { \"redeploy\": \"$(date +%s)\"}}}}}"
