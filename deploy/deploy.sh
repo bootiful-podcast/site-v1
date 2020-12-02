@@ -52,7 +52,6 @@ docker push ${GCR_IMAGE_NAME}
 echo "finished push"
 
 export RESERVED_IP_NAME=site-${BP_MODE_LOWERCASE}-ip
-#export RESERVED_IP_NAME=${BP_MODE_LOWERCASE}-ip
 gcloud compute addresses list --format json | jq '.[].name' -r | grep $RESERVED_IP_NAME ||
   gcloud compute addresses create $RESERVED_IP_NAME --global
 kubectl apply -k ${OD}
