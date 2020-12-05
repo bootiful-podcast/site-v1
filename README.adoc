@@ -1,5 +1,15 @@
 =  The Bootiful Podcast Site Itself
 
+image::https://github.com/bootiful-podcast/site-v1/workflows/Deploy/badge.svg[Status]
+
+
+== Description 
+
 This site runs at http://bootifulpodcast.fm[bootifulpodcast.fm] or http://development.bootifulpodcast.fm[development.bootifulpodcast.fm]
 
-The goal for this codebase is to obviate the need for the static site-generator module.
+The goal for this codebase is to obviate the need for the static site-generator module by having a dynamic site based on HTTP REST calls and Vue.js
+
+
+== Technical Notes 
+
+This site talks to the backend API, and it uses Vue.js for the development of the frontend website.
