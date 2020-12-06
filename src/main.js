@@ -21,12 +21,15 @@ function isEmpty(comment) {
   return false;
 }
 
-const mode = isEmpty(process.env.VUE_APP_BP_MODE) ? 'development' : process.env.VUE_APP_BP_MODE
-console.log('mode: ', mode)
+const mode = (isEmpty(process.env.VUE_APP_BP_MODE) || process.env.VUE_APP_SERVICE_ROOT !== 'production') ?
+  'development' :
+  process.env.VUE_APP_BP_MODE
+
+console.log('mode: ' +  mode)
 console.log('APP_SERVICE_ROOT: ' + process.env.VUE_APP_SERVICE_ROOT)
 
 const rootUrl = ((u) => (u.endsWith('/')) ? u : u + '/')(process.env.VUE_APP_SERVICE_ROOT)
-console.log('API URL: ' + rootUrl )
+console.log('API URL: ' + rootUrl)
 const podcastService = new PodcastService(rootUrl)
 const store = {podcastService: podcastService, rootUrl: rootUrl}
 
