@@ -1,4 +1,4 @@
-name: Deploy  
+name: Deploy
 
 env:
   GIT_PASSWORD: ${{ secrets.GIT_PASSWORD }}
@@ -16,7 +16,8 @@ env:
   CONFIGURATION_SERVER_URI_DEVELOPMENT: https://configuration.development.bootifulpodcast.fm
   GKE_CLUSTER_NAME_PRODUCTION: ${{ secrets.GKE_CLUSTER_NAME_PRODUCTION }}
   GKE_CLUSTER_NAME_DEVELOPMENT: ${{ secrets.GKE_CLUSTER_NAME_DEVELOPMENT }}
-
+  API_ROOT_DEVELOPMENT: https://api.development.bootifulpodcast.fm
+  API_ROOT_PRODUCTION: https://api.bootifulpodcast.fm
 
 on:
   repository_dispatch:

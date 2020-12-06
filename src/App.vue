@@ -371,9 +371,7 @@ export default {
 
   computed: {
     selectedEpisodeUri: function () {
-      const src = this.selected == null ? '' : this.calculateUrlForPodcast(this.selected)
-      console.log('returning selectedEpisodeUri ' + src)
-      return src
+      return this.selected == null ? '' : this.calculateUrlForPodcast(this.selected)
     },
 
   },
