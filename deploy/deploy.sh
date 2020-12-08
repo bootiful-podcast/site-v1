@@ -28,6 +28,7 @@ echo "VUE_APP_SERVICE_ROOT=${API_ROOT}" >> ${PROD_ENV_FILE}
 echo "VUE_APP_GIT_HASH=${GITHUB_SHA}" >> ${PROD_ENV_FILE}
 echo "VUE_APP_BP_MODE=${BP_MODE_LOWERCASE}" >> ${PROD_ENV_FILE}
 
+
 echo "--------------------------"
 echo "The production environment file contains: "
 cat $PROD_ENV_FILE
