@@ -1,7 +1,7 @@
 apiVersion: networking.gke.io/v1beta2
 kind: ManagedCertificate
 metadata:
-  name: site-production-certificate
+  name: site-certificate
 spec:
   domains:
     - bootifulpodcast.fm
