@@ -6,13 +6,14 @@
     <div class="latest-ep-item">
       <div class="photo"><img :src="podcast.episodePhotoUri " alt=""/>
       </div>
-      <div class="content"><h4>
+      <div class="content">
+        <h4>
 
-        <router-link class="active" :to="{name: 'episodes', params: {uid:  podcast.uid }}">
-          {{ podcast.title }}
-        </router-link>
+          <router-link class="active" :to="{name: 'episodes', params: {uid:  podcast.uid }}">
+            {{ podcast.title }}
+          </router-link>
 
-      </h4>
+        </h4>
         <P><strong> {{ podcast.dateAndTime }} </strong></P>
         <p>
         <p v-html="podcast.description">
@@ -20,8 +21,14 @@
         </p>
 
         <div>
-          <i @click.prevent="$emit ('play', podcast )" v-if="selected === false" class="fas fa-play"></i>
-          <i @click.prevent="$emit ('pause', podcast  )" v-if="selected === true" class="fas fa-pause"></i>
+          <i @click.prevent="bubblePlay(podcast)"
+             v-if="selected === false"
+             class="fas fa-play"
+          ></i>
+          <i @click.prevent="bubblePause(podcast)"
+             v-if="selected === true"
+             class="fas fa-pause"
+          ></i>
         </div>
       </div>
     </div>
@@ -34,19 +41,37 @@ export default {
 
   name: 'RecentEpisode',
 
-  props: ['podcast', 'selected'],
+  props: ['podcast'],
 
   mounted() {
   },
 
   async created() {
 
+    // this.podcast = null
+    // this.selected = false
   },
 
-  methods: {},
+  methods: {
+
+    async isPlaying(episode) {
+      return this.selected != null && this.selected.id === episode.id && this.playing
+    },
+    bubblePlay(episode) {
+      this.selected = true
+      this.$emit('play', episode)
+    },
+    bubblePause(episode) {
+      this.selected = false
+      this.$emit('pause', episode)
+    }
+
+  },
 
   data() {
-    return {}
+    return {
+      selected: false
+    }
   },
 
   components: {}

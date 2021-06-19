@@ -6,14 +6,19 @@
   <div>
 
 
-
     <section class="section" id="latest-podcasts">
       <div class="heading-section"><h5> Latest Podcasts</h5><a
           name="latest-episodes"></a></div>
       <div class="container-fluid">
         <div class="row">
-          <RecentEpisode :selected="selected != null && selected.id === p.id && playing "
-                         @pause="pause( p )" @play="play(p )" v-for="p in top3" v-bind:key="p.id" v-bind:podcast="p"/>
+          <RecentEpisode
+              v-for="p in top3"
+              @pause="bubblePause( p )"
+              @play="bubblePlay(p )"
+              :selected="selected != null && selected.id === p.id && playing "
+              :key="p.id"
+              :podcast="p"
+          />
         </div>
       </div>
     </section>
@@ -54,37 +59,43 @@
     </section>
 
 
-
-
   </div>
 </template>
 <script>
 
 import RecentEpisode from "@/RecentEpisode";
+
 export default {
 
   name: 'About',
 
-  props: [ ],
+  props: [],
 
   mounted() {
   },
 
   async created() {
-    this.top3 = await  this.$root.$data.podcastService.readTop3()
+    this.top3 = await this.$root.$data.podcastService.readTop3()
   },
 
-  methods: {},
+  methods: {
+    bubblePlay(episode) {
+      this.$emit('play', episode)
+    },
+    bubblePause(episode) {
+      this.$emit('pause', episode)
+    }
+  },
 
   data() {
     return {
-      latest : [],
-      selected : null,
+      latest: [],
+      selected: null,
       top3: []
     }
   },
 
-  components: {RecentEpisode }
+  components: {RecentEpisode}
 
 }
 

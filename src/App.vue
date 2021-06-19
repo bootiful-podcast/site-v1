@@ -3,11 +3,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@200;300;400;700;900&display=swap');
 
 @import url('assets/css/all.css');
-/*@import url('assets/css/audioplayer.css');*/
 @import url('assets/css/framework.css');
 @import url('assets/css/responsive.css');
 @import url('assets/css/main.css');
-
 
 </style>
 <template>
@@ -123,7 +121,16 @@
       <div class="cover-decoration-bottom"></div>
     </header>
     <section class="section" id="content">
-      <router-view :key="$route.fullPath"/>
+      <!--
+      we need to take events from inner views and bubble them up to the event handlers in App.vue
+      @play="$emit('play', episode)"
+                @pause="$emit('pause', episode)"
+      -->
+      <router-view
+          @play="bubblePlay"
+          @pause="bubblePause"
+          :key="$route.fullPath"
+      />
     </section>
     <section class="section" id="podcasts-archive">
 
@@ -152,9 +159,12 @@
               <div :class="'tab-pane fade show tab-pane-content ' + getYearActiveClassName(year.year) " role="tabpanel"
                    :aria-labelledby="year" :id="'year-' + year.year  + '-content' ">
                 <div :key="episode.id" v-for="episode in year.episodes">
-                  <Episode :selected="selected != null && selected.id === episode.id && playing "
-                           @pause="pause(episode)"
-                           @play="play( episode)" :episode="episode"/>
+                  <Episode
+                      :episode="episode"
+                      :selected="isPlaying(episode) "
+                      @play="bubblePlay(episode)"
+                      @pause="bubblePause (episode)"
+                  />
                 </div>
               </div>
             </div>
@@ -227,9 +237,7 @@
 </template>
 <script>
 
-// import RecentEpisode from "@/RecentEpisode";
 import Episode from "@/Episode";
-// import RecentEpisode from "@/./RecentEpisode";
 
 export default {
 
@@ -260,61 +268,42 @@ export default {
           })
     }
 
-    const podcasts = await this.$root.$data.podcastService.readPodcasts()
-
-    this.podcasts = podcasts
-    this.latest = podcasts[0]
-    this.top3 = [podcasts [0], podcasts[1], podcasts[2]]
+    this.podcasts = await this.$root.$data.podcastService.readPodcasts()
+    this.latest = await this.$root.$data.podcastService.readLatest()
+    this.top3 = await this.$root.$data.podcastService.readTop3()
     this.years = calculateYears(this.podcasts)
+    const that = this
+    const ps = this.$root.$data.playerService
+    this.$on('play', async (episode) => {
+      console.log('playing ' + episode.uid)
+      that.selected = episode
+      await ps.play(episode)
+    })
+
+    this.$on('pause', async (episode) => {
+      console.log('pausing ' + episode.uid)
+      await ps.pause(episode)
+    })
+
   },
 
   methods: {
-    getAudioElement() {
-      return document.getElementsByClassName('audio-player').item(0)
+    async isPlaying(episode) {
+      return this.selected != null && this.selected.id === episode.id && this.playing
     },
+    async bubblePlay(episode) {
+      this.$emit('play', episode)
+    },
+    async bubblePause(episode) {
+      this.$emit('pause', episode)
+    },
+
     calculateUrlForPodcast(podcast) {
       const url = this.$root.$data.rootUrl + podcast.episodeUri.substring(1, podcast.episodeUri.length)
       console.log('the url is ', url)
       return url
     },
-    async pause(podcast) {
 
-      if (this.selected !== null && this.selected.id !== podcast.id) {
-        return
-      }
-
-      const element = this.getAudioElement()
-      try {
-        await element.pause()
-      } catch (e) {
-        console.log('deleting ' + e)
-      }
-
-      this.playing = false
-      // this.selected = null
-    },
-    async play(podcast) {
-      const element = this.getAudioElement()
-      console.assert(podcast != null)
-      console.assert(element != null)
-      try {
-        await element.pause()
-      } catch (e) {
-        console.log('could not pause the audio')
-      }
-      if (this.selected === null || this.selected.id !== podcast.id) {
-        await this.loadPodcast(podcast)
-      }
-      await element.play()
-      this.playing = true
-      return true
-    },
-
-    async loadPodcast(podcast) {
-      this.selected = podcast
-      console.assert(this.getAudioElement() != null)
-      await this.getAudioElement().load()
-    },
     getMenuClass() {
       return (this.menuOpen ? 'open' : '') + ' hamburger-menu'
     },

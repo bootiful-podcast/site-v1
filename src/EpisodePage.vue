@@ -17,7 +17,10 @@
           </router-link>
           <!--          -->
 
-          <Episode v-if="episode != null " v-bind:episode="episode"/>
+          <Episode v-if="episode != null "
+                   @pause="bubblePause(episode)"
+                   @play="bubblePlay (episode)"
+                   v-bind:episode="episode"/>
 
         </div>
       </div>
@@ -37,18 +40,30 @@ export default {
 
   async mounted() {
     const uid = this.$route.params.uid;
-    console.log('uid=' + uid)
+    // console.log('uid=' + uid)
   },
   async created() {
     const uid = this.$route.params.uid;
     this.episode = await this.$root.$data.podcastService.readPodcastByUid(uid)
-    console.info('Launching BootifulPodcast.fm details page for UID ' + uid + '.');
+    // console.info('Launching BootifulPodcast.fm details page for UID ' + uid + '.');
     const header = document.getElementById('header')
     const h = header.getBoundingClientRect().height;
     window.scrollTo(0, h)
     console.log( '...scrolling to ' + h )
   },
-  methods: {},
+  methods: {
+
+    bubblePlay(episode) {
+      this.selected = true
+      this.$emit('play', episode)
+    },
+    bubblePause(episode) {
+      this.selected = false
+      this.$emit('pause', episode)
+    }
+
+
+  },
 
   computed: {},
 

@@ -8,6 +8,7 @@ import VueRouter from 'vue-router'
 import routes from './routes';
 
 import PodcastService from "@/PodcastService";
+import PlayerService from "@/PlayerService";
 import App from "@/App";
 
 
@@ -35,7 +36,8 @@ console.log('APP_SERVICE_ROOT: ' + process.env.VUE_APP_SERVICE_ROOT)
 const rootUrl = ((u) => (u.endsWith('/')) ? u : u + '/')(process.env.VUE_APP_SERVICE_ROOT)
 console.log('API URL: ' + rootUrl)
 const podcastService = new PodcastService(rootUrl)
-const store = {podcastService: podcastService, rootUrl: rootUrl}
+const playerService = new PlayerService()
+const store = {podcastService: podcastService, playerService: playerService, rootUrl: rootUrl}
 
 const router = new VueRouter({routes});
 

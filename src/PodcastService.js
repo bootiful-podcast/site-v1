@@ -11,7 +11,7 @@ export default class PodcastService {
     }
 
     async readLatest() {
-        const podcasts = await this.read()
+        const podcasts = await this.readPodcasts()
         this.latest = podcasts [0]
         return this.latest
     }
