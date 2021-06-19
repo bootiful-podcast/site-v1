@@ -6,8 +6,12 @@
     <div class="latest-ep-item">
       <div class="photo"><img :src="podcast.episodePhotoUri " alt=""/>
       </div>
-      <div class="content"><h4><a href="#">
-        {{ podcast.title }} </a>
+      <div class="content"><h4>
+
+        <router-link class="active" :to="{name: 'episodes', params: {uid:  podcast.uid }}">
+          {{ podcast.title }}
+        </router-link>
+
       </h4>
         <P><strong> {{ podcast.dateAndTime }} </strong></P>
         <p>

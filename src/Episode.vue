@@ -6,15 +6,15 @@
       <div class="col-lg-9 col-md-8">
         <div class="episode-item">
           <div class="photo-ep" id="'delayed-image-' + episode.uid ">
-
-
             <img :alt="'photo for ' + episode.uid" :src="episode.episodePhotoUri"/>
-
           </div>
           <div class="content-ep">
-            <span class="cat-ep">Development</span>
             <div class="heading-episode">
-              <h4><a href="#" class="active">{{ episode.title }}</a></h4>
+              <h4>
+                <router-link class="active" :to="{name: 'episodes', params: {uid:  episode.uid }}">
+                  {{ episode.title }}
+                </router-link>
+              </h4>
               <button type="button" class="btn-light-green"><i class="fas fa-share"></i>share this</button>
             </div>
             <P>{{ episode.dateAndTime }}</P>
