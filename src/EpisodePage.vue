@@ -39,7 +39,7 @@ export default {
   name: 'EpisodePage',
 
   async mounted() {
-    const uid = this.$route.params.uid;
+    // const uid = this.$route.params.uid;
     // console.log('uid=' + uid)
   },
   async created() {
