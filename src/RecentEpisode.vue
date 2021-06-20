@@ -19,7 +19,6 @@
         <p v-html="podcast.description">
           this is a description
         </p>
-
         <div>
 
           <i @click.prevent="bubblePlay(podcast)"
@@ -32,11 +31,24 @@
           ></i>
         </div>
       </div>
+
+
+      <div class="share-panel">
+        <SharePanel
+            :title="podcast.title"
+            :image-url="podcast.episodePhotoUri"
+            :post-url="getUrlForEpisode(podcast)"
+            :episode="podcast"
+        />
+      </div>
+
     </div>
 
   </div>
 </template>
 <script>
+
+import SharePanel from "@/SharePanel";
 
 export default {
 
@@ -51,6 +63,12 @@ export default {
   },
 
   methods: {
+
+
+    getUrlForEpisode(episode) {
+      return this.$root.$data.siteService.getUrlForEpisode(episode)
+    },
+
     isPlaying(episode) {
       return this.$root.$data.playerService.isPlaying(episode)
     },
@@ -66,7 +84,7 @@ export default {
     return {}
   },
 
-  components: {}
+  components: {SharePanel }
 
 }
 </script>

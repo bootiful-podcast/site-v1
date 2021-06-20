@@ -5,35 +5,37 @@ export default {
 
   name: 'SharePanel',
 
-  props: ['episode'],
+  props: ['title', 'imageUrl', 'postUrl'],
 
   async mounted() {
   },
 
   async created() {
-    this.text = this.episode.text
-    this.imageUrl = this.episode.episodePhotoUri
-    this.url = this.getUrlForEpisode(this.episode)
+    this.text = this.title
+    this.url = this.postUrl
+
+
+    const tags = 'spring,cloud,kubernetes,devops,software,java'
     const amp = '&'
     const encodedImageUrl = encodeURIComponent(this.imageUrl)
     const callToAction = 'Check out this episode of "A Bootiful Podcast," with Josh Long: '
     const encodedUrl = encodeURIComponent(this.url)
     const encodedCallToAction = encodeURIComponent(callToAction)
-    const encodedText = encodeURI(this.episode.title)
+    const encodedText = encodeURI(this.text)
 
     this.facebookUrl = 'https://facebook.com/sharer/sharer.php?u=' + encodedUrl
     this.twitterUrl = 'https://twitter.com/intent/tweet/?url=' + encodedUrl + '&text=' + encodedText
     this.tumblrUrl = 'https://www.tumblr.com/widgets/share/tool?' +
         'posttype=link' +
         amp + 'caption=' + encodedText +
-        amp + 'tags=' + 'spring,cloud,kubernetes,devops,software,java' +
+        amp + 'tags=' + tags +
         amp + 'canonicalUrl=' + encodedUrl +
         amp + 'shareSource=tumblr_share_button'
     this.emailUrl = 'mailto:?subject=' + encodedCallToAction + encodedText + '&body=' + encodedUrl
     this.pinterestUrl = 'https://pinterest.com/pin/create/button/?' +
         'url=' + encodedUrl +
         amp + 'media=' + encodedImageUrl +
-        amp + 'description=' + encodeURI(this.episode.title.substring(0, 500))
+        amp + 'description=' + encodeURI(this.text.substring(0, 500))
     this.linkedInUrl = 'https://www.linkedin.com/sharing/share-offsite/?url=' + encodedUrl
 
     this.redditUrl = 'https://reddit.com/submit/?url=' + encodedUrl +
@@ -45,13 +47,7 @@ export default {
     this.telegramUrl = 'https://telegram.me/share/url?text=' + encodedText + amp + 'url=' + encodedUrl
   },
 
-  methods: {
-    getUrlForEpisode(episode) {
-      return this.$root.$data.siteService.getUrlForEpisode(episode)
-      // const prefix = 'https://bootifulpodcast.fm' // todo make this dynamic so it works on localhost:8080 OR in prod
-      // return prefix + '/#/episodes/' + episode.uid
-    }
-  },
+  methods: {},
 
   data() {
     return {
@@ -251,14 +247,18 @@ export default {
 .resp-sharing-button__link {
   text-decoration: none;
   color: #fff;
-  margin: 0.5em
+  margin: 0 ;
+  margin-right: 10px ;
+  margin-bottom : 10px ;
+
 }
 
 .resp-sharing-button {
   border-radius: 5px;
   transition: 25ms ease-out;
   padding: 0.5em 0.75em;
-  font-family: Helvetica Neue, Helvetica, Arial, sans-serif
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif ;
+  font-size: smaller;
 }
 
 .resp-sharing-button__icon svg {
@@ -326,14 +326,6 @@ export default {
   background-color: #3a80c1
 }
 
-.resp-sharing-button--google {
-  background-color: #dd4b39
-}
-
-.resp-sharing-button--google:hover {
-  background-color: #c23321
-}
-
 .resp-sharing-button--linkedin {
   background-color: #0077b5
 }
@@ -350,14 +342,6 @@ export default {
   background-color: #5e5e5e
 }
 
-.resp-sharing-button--xing {
-  background-color: #1a7576
-}
-
-.resp-sharing-button--xing:hover {
-  background-color: #114c4c
-}
-
 .resp-sharing-button--whatsapp {
   background-color: #25D366
 }
@@ -372,14 +356,6 @@ export default {
 
 .resp-sharing-button--hackernews:hover, .resp-sharing-button--hackernews:focus {
   background-color: #FB6200
-}
-
-.resp-sharing-button--vk {
-  background-color: #507299
-}
-
-.resp-sharing-button--vk:hover {
-  background-color: #43648c
 }
 
 .resp-sharing-button--facebook {

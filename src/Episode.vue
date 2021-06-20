@@ -1,4 +1,7 @@
 <style>
+.share-panel {
+  margin-top: 1em;
+}
 </style>
 <template>
   <div class="podcast-episode">
@@ -17,11 +20,17 @@
               </h4>
 
 
-
             </div>
             <P>{{ episode.dateAndTime }}</P>
             <div v-html=" episode.description "></div>
-            <SharePanel :episode="episode"/>
+            <div class="share-panel">
+              <SharePanel
+                  :title="episode.title"
+                  :image-url="episode.episodePhotoUri"
+                  :post-url="getUrlForEpisode(episode)"
+                  :episode="episode"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -61,6 +70,10 @@ export default {
   },
 
   methods: {
+
+    getUrlForEpisode(episode) {
+      return this.$root.$data.siteService.getUrlForEpisode(episode)
+    },
     bubblePlay(episode) {
       this.$emit('play', episode)
     },
