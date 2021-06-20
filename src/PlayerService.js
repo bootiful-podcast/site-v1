@@ -6,8 +6,6 @@ export default class PlayerService {
     constructor() {
         this.selected = null
         this.playing = false
-
-
     }
 
 

@@ -10,6 +10,7 @@ import routes from './routes';
 import PodcastService from "@/PodcastService";
 import PlayerService from "@/PlayerService";
 import App from "@/App";
+import SiteService from "@/SiteService";
 
 
 Vue.config.productionTip = false
@@ -37,7 +38,13 @@ const rootUrl = ((u) => (u.endsWith('/')) ? u : u + '/')(process.env.VUE_APP_SER
 console.log('API URL: ' + rootUrl)
 const podcastService = new PodcastService(rootUrl)
 const playerService = new PlayerService()
-const store = {podcastService: podcastService, playerService: playerService, rootUrl: rootUrl}
+const siteService = new SiteService()
+const store = {
+    podcastService: podcastService,
+    playerService: playerService,
+    siteService: siteService,
+    rootUrl: rootUrl
+}
 
 const router = new VueRouter({routes});
 

@@ -288,6 +288,10 @@ export default {
     player.addEventListener('playing', () => {
       ps.playing = true
     })
+
+
+
+
   },
 
   methods: {

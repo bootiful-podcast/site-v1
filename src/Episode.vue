@@ -15,10 +15,13 @@
                   {{ episode.title }}
                 </router-link>
               </h4>
-              <button type="button" class="btn-light-green"><i class="fas fa-share"></i>share this</button>
+
+
+
             </div>
             <P>{{ episode.dateAndTime }}</P>
             <div v-html=" episode.description "></div>
+            <SharePanel :episode="episode"/>
           </div>
         </div>
       </div>
@@ -28,8 +31,8 @@
             <li class="control-ep">
               <div class="icon">
 
-                <i @click.prevent="bubblePlay(episode)"   v-if="isPlaying(episode) === false" class="fas fa-play"></i>
-                <i @click.prevent="bubblePause(episode)"  v-if="isPlaying(episode) === true" class="fas fa-pause"></i>
+                <i @click.prevent="bubblePlay(episode)" v-if="isPlaying(episode) === false" class="fas fa-play"></i>
+                <i @click.prevent="bubblePause(episode)" v-if="isPlaying(episode) === true" class="fas fa-pause"></i>
               </div>
               <span class="play-status" id="'episode-play-' + episode.uid +'-status' "></span>
 
@@ -42,6 +45,8 @@
   </div>
 </template>
 <script>
+
+import SharePanel from "@/SharePanel";
 
 export default {
 
@@ -59,7 +64,7 @@ export default {
     bubblePlay(episode) {
       this.$emit('play', episode)
     },
-    isPlaying (episode) {
+    isPlaying(episode) {
       return this.$root.$data.playerService.isPlaying(episode)
     },
     bubblePause(episode) {
@@ -69,11 +74,10 @@ export default {
   },
 
   data() {
-    return {
-    }
+    return {}
   },
 
-  components: {}
+  components: {SharePanel}
 
 }
 </script>

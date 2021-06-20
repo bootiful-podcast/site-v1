@@ -46,7 +46,17 @@ export default {
     const header = document.getElementById('header')
     const h = header.getBoundingClientRect().height;
     window.scrollTo(0, h)
-    console.log('...scrolling to ' + h)
+    this.$root.$data.siteService.appendToTitle(this.episode.title)
+
+    this.$root.$data.siteService.configureMetadata(
+        {
+          title: this.episode.title,
+          description: this.episode.title,
+          image: this.episode.episodePhotoUri,
+          url: this.$root.$data.siteService.getUrlForEpisode(this.episode)
+        }
+    )
+
   },
   methods: {
 
