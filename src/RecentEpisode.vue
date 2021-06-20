@@ -21,12 +21,13 @@
         </p>
 
         <div>
+
           <i @click.prevent="bubblePlay(podcast)"
-             v-if="selected === false"
+             v-if="isPlaying(podcast) === false"
              class="fas fa-play"
           ></i>
           <i @click.prevent="bubblePause(podcast)"
-             v-if="selected === true"
+             v-if="isPlaying(podcast) === true"
              class="fas fa-pause"
           ></i>
         </div>
@@ -43,35 +44,26 @@ export default {
 
   props: ['podcast'],
 
-  mounted() {
+  async mounted() {
   },
 
   async created() {
-
-    // this.podcast = null
-    // this.selected = false
   },
 
   methods: {
-
-    async isPlaying(episode) {
-      return this.selected != null && this.selected.id === episode.id && this.playing
+    isPlaying(episode) {
+      return this.$root.$data.playerService.isPlaying(episode)
     },
     bubblePlay(episode) {
-      this.selected = true
       this.$emit('play', episode)
     },
     bubblePause(episode) {
-      this.selected = false
       this.$emit('pause', episode)
     }
-
   },
 
   data() {
-    return {
-      selected: false
-    }
+    return {}
   },
 
   components: {}

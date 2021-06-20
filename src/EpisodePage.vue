@@ -39,26 +39,24 @@ export default {
   name: 'EpisodePage',
 
   async mounted() {
-    // const uid = this.$route.params.uid;
-    // console.log('uid=' + uid)
   },
   async created() {
     const uid = this.$route.params.uid;
     this.episode = await this.$root.$data.podcastService.readPodcastByUid(uid)
-    // console.info('Launching BootifulPodcast.fm details page for UID ' + uid + '.');
     const header = document.getElementById('header')
     const h = header.getBoundingClientRect().height;
     window.scrollTo(0, h)
-    console.log( '...scrolling to ' + h )
+    console.log('...scrolling to ' + h)
   },
   methods: {
 
+    isPlaying(episode) {
+      return this.$root.$data.playerService.isPlaying(episode)
+    },
     bubblePlay(episode) {
-      this.selected = true
       this.$emit('play', episode)
     },
     bubblePause(episode) {
-      this.selected = false
       this.$emit('pause', episode)
     }
 

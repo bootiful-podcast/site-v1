@@ -28,8 +28,8 @@
             <li class="control-ep">
               <div class="icon">
 
-                <i @click.prevent="bubblePlay (episode)" v-if="selected === false" class="fas fa-play"></i>
-                <i @click.prevent="bubblePause(episode)" v-if="selected === true" class="fas fa-pause"></i>
+                <i @click.prevent="bubblePlay(episode)"   v-if="isPlaying(episode) === false" class="fas fa-play"></i>
+                <i @click.prevent="bubblePause(episode)"  v-if="isPlaying(episode) === true" class="fas fa-pause"></i>
               </div>
               <span class="play-status" id="'episode-play-' + episode.uid +'-status' "></span>
 
@@ -53,17 +53,16 @@ export default {
   },
 
   created() {
-
-    this.selected = false
   },
 
   methods: {
     bubblePlay(episode) {
-      this.selected = true
       this.$emit('play', episode)
     },
+    isPlaying (episode) {
+      return this.$root.$data.playerService.isPlaying(episode)
+    },
     bubblePause(episode) {
-      this.selected = false
       this.$emit('pause', episode)
     }
 
@@ -71,7 +70,6 @@ export default {
 
   data() {
     return {
-      selected: false
     }
   },
 

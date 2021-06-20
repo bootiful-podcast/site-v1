@@ -13,9 +13,8 @@
         <div class="row">
           <RecentEpisode
               v-for="p in top3"
-              @pause="bubblePause( p )"
-              @play="bubblePlay(p )"
-              :selected="selected != null && selected.id === p.id && playing "
+              @pause="bubblePause(p)"
+              @play="bubblePlay(p)"
               :key="p.id"
               :podcast="p"
           />
@@ -90,7 +89,6 @@ export default {
   data() {
     return {
       latest: [],
-      selected: null,
       top3: []
     }
   },

@@ -121,11 +121,6 @@
       <div class="cover-decoration-bottom"></div>
     </header>
     <section class="section" id="content">
-      <!--
-      we need to take events from inner views and bubble them up to the event handlers in App.vue
-      @play="$emit('play', episode)"
-                @pause="$emit('pause', episode)"
-      -->
       <router-view
           @play="bubblePlay"
           @pause="bubblePause"
@@ -272,8 +267,8 @@ export default {
     this.latest = await this.$root.$data.podcastService.readLatest()
     this.top3 = await this.$root.$data.podcastService.readTop3()
     this.years = calculateYears(this.podcasts)
-    const that = this
     const ps = this.$root.$data.playerService
+    const that = this
     this.$on('play', async (episode) => {
       console.log('playing ' + episode.uid)
       that.selected = episode
@@ -285,11 +280,19 @@ export default {
       await ps.pause(episode)
     })
 
+    // this way we synchronize player state to the HTML5 controls, not just our custom ones
+    const player = this.$root.$data.playerService.getAudioElement()
+    player.addEventListener('pause', () => {
+      ps.playing = false
+    })
+    player.addEventListener('playing', () => {
+      ps.playing = true
+    })
   },
 
   methods: {
     async isPlaying(episode) {
-      return this.selected != null && this.selected.id === episode.id && this.playing
+      return this.$root.$data.playerService.isPlaying(episode)
     },
     async bubblePlay(episode) {
       this.$emit('play', episode)
