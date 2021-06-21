@@ -1,90 +1,74 @@
 
-/*==========  Non-Mobile First Method  ==========*/
-
-/* Large Devices, Wide Screens */
-@media only screen and (max-width : 1200px) {
+.hero {
 
 }
 
-/* Medium Devices, Desktops */
-@media only screen and (max-width : 992px) {
+.cover-decoration-bottom {
 
-    .header { height:100%; max-height: 100%; position: relative; }
-    header.header { min-height:100%; }
-    header.top-bar button.mobile-nav-btn { display: none; }
-    header.header .nav-menu { display: none; }
-
-    .left-cover-part {
-        right:5%;
-        left:auto;
-        width:50%;
-        bottom:0;
-    }
-
-    .right-cover-part {
-        left:0%;
-        right:auto;
-        width:75%;
-    }
-
-    .cover .caption h1 {
-        font-size: 5vh;
-    }
-
-    .controls-episode li.control-ep { margin:0 5px; }
-    footer.footer .copyrights { line-height: 1.6em; }
-
-
-    .contact-area { margin-bottom: 50px; }
-
-    #contact-section .heading-contact { margin-left: 0; }
-
-
-
+    background: url('/assets/images/graphicsEnd.png') repeat-x;
+    width: 100%;
+    position: relative;
+    top: -150px;
+    height: 226px;
+    grid-area: cover;
 }
 
-/* Small Devices, Tablets */
-@media only screen and (max-width : 768px) {
-
-    .col-hide { display: none; }
-
-    .nav-menu li {
-        display: inline-block;
-        margin-right: 10px;
-    }
-
-    .search-nav { display: none; }
-
-    .cover .caption h1 {
-       /* font-size:  3vh;
-        max-font-size: calc(72pt / 2 );*/
-    }
-
-    .topic-item { margin-bottom:25px; }
-    .topics-section .row { margin-bottom: 0; }
-
-    nav.navbar-page .nav-menu { display: none; }
-
-
-
+.cover-decoration-bottom img {
+    max-width: 100%;
 }
 
-/* Extra Small Devices, Phones */
-@media only screen and (max-width : 480px) {
+.header {
+}
 
-    .nav-menu { display: none; }
+header.header {
+}
 
+header.top-bar button.mobile-nav-btn {
+}
 
+header.header .nav-menu {
+}
 
+.hero {
+    display: grid;
+    grid-template-areas:
+                "photo about"
+                "cover cover";
+    grid-template-columns: 210px auto;
+    grid-template-rows: auto 76px;
+}
 
+.hero .hello {
+    font-size: x-large;
+    color: white;
+}
+
+.hero .left {
+    grid-area: photo;
+}
+
+.hero .right {
+    grid-area: about;
+}
+
+.cover .caption h1 {
+    /*font-size: 5vh;*/
+}
+
+.controls-episode li.control-ep {
+    margin: 0 5px;
+}
+
+footer.footer .copyrights {
+    line-height: 1.6em;
 }
 
 
-
-/* Custom, iPhone Retina */
-@media only screen and (max-width : 320px) {
-
-
-
-
+.contact-area {
+    margin-bottom: 50px;
 }
+
+#contact-section .heading-contact {
+    margin-left: 0;
+}
+

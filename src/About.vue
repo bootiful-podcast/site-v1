@@ -58,13 +58,7 @@
                     href="http://bit.ly/spring-tips-playlist"><span
                     class="text-underline">screencaster</span></a>
                 .</p>
-
-
             </div>
-<!--            -->
-
-
-
           </div>
         </div>
 

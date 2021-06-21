@@ -64,7 +64,7 @@
 
     </header>
 
-    <header class="header" id="header">
+    <header class="header"  id="header">
       <nav class="navbar">
         <div class="container-fluid">
           <div class="logo">
@@ -87,38 +87,24 @@
           </div>
         </div>
       </nav>
-      <div class="cover">
-        <div class="container-fluid">
-          <div class="row">
-
-            <div class="left-cover-part">
-              <div class="josh-photo">
-                <img srcset="/assets/images/josh@2x.webp 2x"
-                     alt="josh Long"
-                />
-              </div>
-            </div>
-            <div class="right-cover-part">
-              <div class="caption"><a name="about"></a>
-                <h1> Hi, I'm <a
-                    style="color: greenyellow ; text-shadow: none"
-                    href="http://twitter.com/starbuxman">Josh
-                  Long</a>,<br/>
-                  a humble Spring developer advocate, and this is <EM>A&nbsp;Bootiful&nbsp;Podcast</EM>,
-                  a celebration of the real heroes that drive
-                  ecosystems.
-                </h1>
-                <a href="#latest-podcasts"
-                   class="btn-slide minimal-btn"><i
-                    class="fas fa-angle-down"></i>view podcasts</a>
-              </div>
-            </div>
-
-
-          </div>
+      <div class="hero">
+        <div class="photo" style="align-self: end">
+          <img srcset="/assets/images/josh@2x.webp 2x" alt="josh Long"/>
         </div>
+        <div style="margin-bottom: 100px ">
+          <a name="about"></a>
+          <h1  class="hello">
+            Hi, I'm <a style="color: greenyellow ; text-shadow: none" href="http://twitter.com/starbuxman">Josh Long</a>,
+            <br/> a humble Spring developer advocate, and this is <EM>A&nbsp;Bootiful&nbsp;Podcast</EM>, a celebration
+            of the heroes that drive the Spring and Java ecosystems
+          </h1>
+          <div><a href="#latest-podcasts" class="btn-slide minimal-btn"><i class="fas fa-angle-down"></i>view podcasts</a></div>
+        </div>
+
+        <div class="cover-decoration-bottom"></div>
+
       </div>
-      <div class="cover-decoration-bottom"></div>
+
     </header>
     <section class="section" id="content">
       <router-view
@@ -288,8 +274,6 @@ export default {
     player.addEventListener('playing', () => {
       ps.playing = true
     })
-
-
 
 
   },
