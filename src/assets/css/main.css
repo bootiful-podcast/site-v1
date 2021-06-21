@@ -31,12 +31,30 @@
 */
 
 
+.popup {
+    -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
+    border-radius: 20px;
+    background-color: #f5f8f7;;
+    padding-right: 1em;
+    padding-left: 1em;
+}
 
+.popup-panel {
+    z-index: 100000;
+    padding: 10px;
+}
 
-/**/
-
-
-/**/
+.popup-link {
+    padding-top: .5em;
+    padding-bottom: .5em;
+    /*text-decoration: underline;*/
+    font-weight: bold;
+    color: black ;
+    text-transform: uppercase;
+    text-align: center;
+    font-size: smaller;
+}
 
 
 /* ---------------------------------------------------
@@ -517,9 +535,6 @@ nav.navbar {
 }
 
 
-
-
-
 /*
 .left-cover-part {
     position: absolute;
@@ -787,19 +802,6 @@ nav.navbar {
     padding: 0;
 }
 
-.photo-ep {
-    float: left;
-    width: 135px;
-    padding-right: 25px;
-}
-
-.photo-ep img {
-    width: 110px;
-    height: 110px;
-    border-radius: 50%;
-    -webkit-border-radius: 50%;
-    display: block;
-}
 
 .content-ep {
     margin-left: 140px;

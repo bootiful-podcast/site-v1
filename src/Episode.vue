@@ -1,67 +1,109 @@
 <style>
 .share-panel {
-  margin-top: 1em;
+  margin-top: 20px ;
 }
+
+.podcast-episode .photo {
+  justify-self: right;
+  margin-right: 10px;
+}
+
+.podcast-episode .photo img {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  display: block;
+}
+
+
+.podcast-episode {
+  display: grid;
+  grid-template-areas:
+                "photo title title "
+                "photo   controls dateline "
+                "photo description description"
+                ". share share";
+  grid-template-columns: 120px 30px  auto;
+  grid-template-rows: auto auto auto auto;
+}
+
+.podcast-episode .photo {
+  grid-area: photo;
+}
+
+.podcast-episode .title {
+  grid-area: title;
+}
+
+
+.podcast-episode .description {
+  grid-area: description;
+}
+
+.podcast-episode .share {
+  grid-area: share;
+  margin-top: 10px ;
+}
+
+.podcast-episode .controls {
+  justify-self: left;
+  grid-area: controls;
+}
+
 </style>
 <template>
   <div class="podcast-episode">
-    <div class="row">
-      <div class="col-lg-9 col-md-8">
-        <div class="episode-item">
-          <div class="photo-ep" id="'delayed-image-' + episode.uid ">
-            <img :alt="'photo for ' + episode.uid" :src="episode.episodePhotoUri"/>
-          </div>
-          <div class="content-ep">
-            <div class="heading-episode">
-              <h4>
-                <router-link class="active" :to="{name: 'episodes', params: {uid:  episode.uid }}">
-                  {{ episode.title }}
-                </router-link>
-              </h4>
 
 
-            </div>
-            <P>{{ episode.dateAndTime }}</P>
-            <div v-html=" episode.description "></div>
-            <div class="share-panel"  >
+    <div class="photo" id="'delayed-image-' + episode.uid ">
+      <img :alt="'photo for ' + episode.uid" :src="episode.episodePhotoUri"/>
+    </div>
 
 
-              <PopupPanel>
-                <template v-slot:target>
-                  Share
-                </template>
+    <h4 class="title">
+      <router-link class="active" :to="{name: 'episodes', params: {uid:  episode.uid }}">
+        {{ episode.title }}
+      </router-link>
+    </h4>
 
 
-                <div>
-                  <SharePanel
-                      :title="episode.title"
-                      :image-url="episode.episodePhotoUri"
-                      :post-url="getUrlForEpisode(episode)"
-                      :episode="episode"
-                  />
-                </div>
-              </PopupPanel>
+    <div class="dateline">{{ episode.dateAndTime }}</div>
+    <div class="description" v-html=" episode.description "></div>
 
 
-            </div>
-          </div>
+    <div class="share">
+
+
+      <PopupPanel>
+        <template v-slot:target>
+          Share
+        </template>
+
+
+        <div>
+          <SharePanel
+              :title="episode.title"
+              :image-url="episode.episodePhotoUri"
+              :post-url="getUrlForEpisode(episode)"
+              :episode="episode"
+          />
         </div>
-      </div>
-      <div class="col-lg-3 col-md-4">
-        <div class="controls-episode">
-          <ul>
-            <li class="control-ep">
-              <div class="icon">
+      </PopupPanel>
 
-                <i @click.prevent="bubblePlay(episode)" v-if="isPlaying(episode) === false" class="fas fa-play"></i>
-                <i @click.prevent="bubblePause(episode)" v-if="isPlaying(episode) === true" class="fas fa-pause"></i>
-              </div>
-              <span class="play-status" id="'episode-play-' + episode.uid +'-status' "></span>
 
-            </li>
-          </ul>
-        </div>
-      </div>
+    </div>
+
+    <div class="controls">
+      <ul>
+        <li class="control-ep">
+          <div class="icon">
+            <i @click.prevent="bubblePlay(episode)" v-if="isPlaying(episode) === false" class="fas fa-play"></i>
+            <i @click.prevent="bubblePause(episode)" v-if="isPlaying(episode) === true" class="fas fa-pause"></i>
+          </div>
+          <span class="play-status" id="'episode-play-' + episode.uid +'-status' "></span>
+        </li>
+      </ul>
     </div>
 
   </div>

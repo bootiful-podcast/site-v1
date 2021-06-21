@@ -8,29 +8,6 @@
 @import url('assets/css/main.css');
 
 
-.popup {
-  -moz-border-radius: 20px;
-  -webkit-border-radius: 20px;
-  border-radius: 20px;
-  background-color: black ;
-  padding-right: 1em;
-  padding-left: 1em;
-}
-
-.popup-panel {
-  z-index: 100000;
-  padding: 10px;
-}
-
-.popup-link {
-  padding-top : .5em;
-  padding-bottom: .5em;
-  /*text-decoration: underline;*/
-  font-weight: bold;
-  color : white ;
-  text-transform: uppercase;
-  text-align: center;
-}
 
 
 
