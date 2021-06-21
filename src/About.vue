@@ -11,6 +11,7 @@
           name="latest-episodes"></a></div>
       <div class="container-fluid">
         <div class="row">
+<!--
           <RecentEpisode
               v-for="p in top3"
               @pause="bubblePause(p)"
@@ -18,6 +19,16 @@
               :key="p.id"
               :podcast="p"
           />
+-->
+
+          <div :key="p.id" v-for="p in top3">
+            <Episode
+                :episode="p"
+                @pause="bubblePause(p)"
+                @play="bubblePlay(p)"
+            />
+          </div>
+
 
 
         </div>
@@ -70,7 +81,9 @@
 </template>
 <script>
 
-import RecentEpisode from "@/RecentEpisode";
+// import RecentEpisode from "@/RecentEpisode";
+
+import Episode from "@/Episode";
 
 export default {
 
@@ -101,7 +114,7 @@ export default {
     }
   },
 
-  components: {RecentEpisode }
+  components: {Episode }
 
 }
 
