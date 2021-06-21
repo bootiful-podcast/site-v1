@@ -97,7 +97,7 @@
         <div class="hero-text">
           <h1 class="hello">
             Hi, I'm <a style="color: greenyellow ; text-shadow: none" href="http://twitter.com/starbuxman">Josh Long</a>,
-            <br/> a humble Spring developer advocate, and this is <EM>A&nbsp;Bootiful&nbsp;Podcast</EM>, a celebration
+            a humble Spring developer advocate, and this is <EM>A&nbsp;Bootiful&nbsp;Podcast</EM>, a celebration
             of the heroes that drive the Spring and Java ecosystems
           </h1>
           <div>
