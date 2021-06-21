@@ -64,7 +64,7 @@
 
     </header>
 
-    <header class="header"  id="header">
+    <header class="header" id="header">
       <nav class="navbar">
         <div class="container-fluid">
           <div class="logo">
@@ -73,8 +73,10 @@
             </a>
           </div>
           <ul class="nav-menu">
-            <li class="active"><a href="/">Home</a></li>
-            <li><a href="#about">About</a></li>
+            <li class="active">
+              <a href="/">Home</a>
+            </li>
+
             <li><a href="#latest-podcasts">Latest Episodes</a></li>
             <li><a href="#all-podcasts">All Episodes</a></li>
             <li><a href="#podcatchers">iTunes/Google Play/Spotify</a></li>
@@ -88,21 +90,23 @@
         </div>
       </nav>
       <div class="hero">
-        <div class="photo" style="align-self: end">
+
+        <div class="hero-photo">
           <img srcset="/assets/images/josh@2x.webp 2x" alt="josh Long"/>
         </div>
-        <div style="margin-bottom: 100px ">
-          <a name="about"></a>
-          <h1  class="hello">
+        <div class="hero-text">
+          <h1 class="hello">
             Hi, I'm <a style="color: greenyellow ; text-shadow: none" href="http://twitter.com/starbuxman">Josh Long</a>,
             <br/> a humble Spring developer advocate, and this is <EM>A&nbsp;Bootiful&nbsp;Podcast</EM>, a celebration
             of the heroes that drive the Spring and Java ecosystems
           </h1>
-          <div><a href="#latest-podcasts" class="btn-slide minimal-btn"><i class="fas fa-angle-down"></i>view podcasts</a></div>
+          <div>
+            <a href="#latest-podcasts" class="btn-slide minimal-btn">
+              <i class="fas fa-angle-down"></i>view podcasts
+            </a>
+          </div>
         </div>
-
-        <div class="cover-decoration-bottom"></div>
-
+        <div class="hero-bottom"></div>
       </div>
 
     </header>

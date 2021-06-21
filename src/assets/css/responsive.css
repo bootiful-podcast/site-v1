@@ -1,22 +1,4 @@
 
-.hero {
-
-}
-
-.cover-decoration-bottom {
-
-    background: url('/assets/images/graphicsEnd.png') repeat-x;
-    width: 100%;
-    position: relative;
-    top: -150px;
-    height: 226px;
-    grid-area: cover;
-}
-
-.cover-decoration-bottom img {
-    max-width: 100%;
-}
-
 .header {
 }
 
@@ -30,12 +12,25 @@ header.header .nav-menu {
 }
 
 .hero {
-    display: grid;
-    grid-template-areas:
-                "photo about"
-                "cover cover";
-    grid-template-columns: 210px auto;
-    grid-template-rows: auto 76px;
+}
+
+.hero-text {
+    margin-bottom: 100px;
+    grid-area: hero-text;
+}
+.hero-photo {
+    grid-area: hero-photo;
+    align-self: end;
+}
+
+.hero-bottom {
+    grid-area: hero-bottom;
+    background: url('/assets/images/graphicsEnd.png') repeat-x;
+    width: 100%;
+    position: relative;
+    top: -150px;
+    height: 226px;
+
 }
 
 .hero .hello {
@@ -43,13 +38,34 @@ header.header .nav-menu {
     color: white;
 }
 
-.hero .left {
-    grid-area: photo;
+.cover-decoration-bottom img {
+    max-width: 100%;
 }
 
-.hero .right {
-    grid-area: about;
+/*@media screen and (  max-width: 500px ) {*/
+
+
+
+
+@media screen and (  min-width: 500px ) {
+
+    .photo {
+        align-self: end
+    }
+
+
+    .hero {
+        display: grid;
+        grid-template-areas:
+                "hero-photo hero-text"
+                "hero-bottom hero-bottom";
+        grid-template-columns: 210px auto;
+        grid-template-rows: auto 76px;
+    }
 }
+
+
+
 
 .cover .caption h1 {
     /*font-size: 5vh;*/
