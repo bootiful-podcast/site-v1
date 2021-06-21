@@ -1,31 +1,56 @@
 <style>
 .share-panel {
-  margin-top: 20px ;
-}
-
-.podcast-episode .photo {
-  justify-self: right;
-  margin-right: 10px;
+  margin-top: 20px;
 }
 
 .podcast-episode .photo img {
-  width: 110px;
-  height: 110px;
+  width: 180px;
+  height: 180px;
   border-radius: 50%;
   -webkit-border-radius: 50%;
   display: block;
 }
 
-
 .podcast-episode {
   display: grid;
-  grid-template-areas:
-                "photo title title "
-                "photo   controls dateline "
-                "photo description description"
-                ". share share";
-  grid-template-columns: 120px 30px  auto;
-  grid-template-rows: auto auto auto auto;
+}
+
+@media only screen and (max-width: 500px  ) {
+
+  .podcast-episode .photo {
+    justify-self: center;
+    margin-bottom: 20px;
+    margin-top: 20px;
+  }
+
+  .podcast-episode {
+    grid-template-areas:
+      "photo photo"
+      "title title "
+      "controls dateline"
+      "description description"
+      "share share";
+    grid-template-columns: 30px auto;
+    grid-template-rows: auto auto auto auto auto;
+  }
+}
+
+@media only screen and (min-width: 500px  ) {
+
+  .podcast-episode .photo {
+    justify-self: right;
+    margin-right: 20px;
+  }
+
+  .podcast-episode {
+    grid-template-areas:
+      "photo title title "
+      "photo controls dateline "
+      "photo description description"
+      ". share share";
+    grid-template-columns: 200px 30px auto;
+    grid-template-rows: auto auto auto auto;
+  }
 }
 
 .podcast-episode .photo {
@@ -36,14 +61,13 @@
   grid-area: title;
 }
 
-
 .podcast-episode .description {
   grid-area: description;
 }
 
 .podcast-episode .share {
   grid-area: share;
-  margin-top: 10px ;
+  margin-top: 10px;
 }
 
 .podcast-episode .controls {
