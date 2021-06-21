@@ -23,13 +23,26 @@
             </div>
             <P>{{ episode.dateAndTime }}</P>
             <div v-html=" episode.description "></div>
-            <div class="share-panel">
-              <SharePanel
-                  :title="episode.title"
-                  :image-url="episode.episodePhotoUri"
-                  :post-url="getUrlForEpisode(episode)"
-                  :episode="episode"
-              />
+            <div class="share-panel"  >
+
+
+              <PopupPanel>
+                <template v-slot:target>
+                  Share
+                </template>
+
+
+                <div>
+                  <SharePanel
+                      :title="episode.title"
+                      :image-url="episode.episodePhotoUri"
+                      :post-url="getUrlForEpisode(episode)"
+                      :episode="episode"
+                  />
+                </div>
+              </PopupPanel>
+
+
             </div>
           </div>
         </div>
@@ -56,6 +69,7 @@
 <script>
 
 import SharePanel from "@/SharePanel";
+import PopupPanel from "@/PopupPanel";
 
 export default {
 
@@ -90,7 +104,7 @@ export default {
     return {}
   },
 
-  components: {SharePanel}
+  components: {PopupPanel, SharePanel}
 
 }
 </script>

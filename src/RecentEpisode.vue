@@ -34,12 +34,27 @@
 
 
       <div class="share-panel">
-        <SharePanel
-            :title="podcast.title"
-            :image-url="podcast.episodePhotoUri"
-            :post-url="getUrlForEpisode(podcast)"
-            :episode="podcast"
-        />
+
+
+
+
+        <PopupPanel>
+          <template v-slot:target>
+            Share
+          </template>
+
+
+          <div>
+            <SharePanel
+                :title="podcast.title"
+                :image-url="podcast.episodePhotoUri"
+                :post-url="getUrlForEpisode(podcast)"
+                :episode="podcast"
+            />
+          </div>
+        </PopupPanel>
+
+
       </div>
 
     </div>
@@ -49,6 +64,7 @@
 <script>
 
 import SharePanel from "@/SharePanel";
+import PopupPanel from "@/PopupPanel";
 
 export default {
 
@@ -84,7 +100,7 @@ export default {
     return {}
   },
 
-  components: {SharePanel }
+  components: {SharePanel , PopupPanel}
 
 }
 </script>

@@ -7,11 +7,37 @@
 @import url('assets/css/responsive.css');
 @import url('assets/css/main.css');
 
+
+.popup {
+  -moz-border-radius: 20px;
+  -webkit-border-radius: 20px;
+  border-radius: 20px;
+  background-color: black ;
+  padding-right: 1em;
+  padding-left: 1em;
+}
+
+.popup-panel {
+  z-index: 100000;
+  padding: 10px;
+}
+
+.popup-link {
+  padding-top : .5em;
+  padding-bottom: .5em;
+  /*text-decoration: underline;*/
+  font-weight: bold;
+  color : white ;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+
+
 </style>
 <template>
   <div>
     <a name="top"></a>
-
 
     <header class="top-bar" id="topBar">
 
@@ -91,6 +117,7 @@
       </nav>
       <div class="hero">
 
+
         <div class="hero-photo">
           <img srcset="/assets/images/josh@2x.webp 2x" alt="josh Long"/>
         </div>
@@ -118,6 +145,7 @@
       />
     </section>
     <section class="section" id="podcasts-archive">
+
 
       <div class="heading-section"><h5>All Episodes </h5><a
           name="all-podcasts"></a></div>
@@ -232,9 +260,7 @@ export default {
   },
 
   async created() {
-
     console.info('Launching BootifulPodcast.fm ')
-
     const cy = new Date().getFullYear()
     this.currentYear = cy
     this.selectedYear = cy
@@ -336,7 +362,7 @@ export default {
     }
   },
 
-  components: {Episode  /*RecentEpisode*/}
+  components: {Episode}
 
 }
 </script>

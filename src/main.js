@@ -3,8 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap-vue/dist/bootstrap-vue.css"
 import {BootstrapVue, IconsPlugin} from 'bootstrap-vue'
 import VueRouter from 'vue-router'
-// import App from "@/App";
-// import Index from "@/Index";
+import mitt from 'mitt';
 import routes from './routes';
 
 import PodcastService from "@/PodcastService";
@@ -39,7 +38,9 @@ console.log('API URL: ' + rootUrl)
 const podcastService = new PodcastService(rootUrl)
 const playerService = new PlayerService()
 const siteService = new SiteService()
+const bus = mitt();
 const store = {
+    bus: bus,
     podcastService: podcastService,
     playerService: playerService,
     siteService: siteService,
@@ -47,9 +48,7 @@ const store = {
 }
 
 const router = new VueRouter({routes});
-
-
-new Vue(
+const app = new Vue(
     {
         data: store,
         router: router,
@@ -57,4 +56,5 @@ new Vue(
 
     }
 )
-    .$mount('#app')
+
+app.$mount('#app')
