@@ -5,8 +5,8 @@ set -o pipefail
 
 export APP_NAME=site
 
-
-export BP_MODE_LOWERCASE=${BP_MODE_LOWERCASE:-development}
+export BP_MODE=PRODUCTION
+export BP_MODE_LOWERCASE=production
 export ENV_SUB_DOMAIN=$( [ "${BP_MODE_LOWERCASE}" = "production" ] && echo ""  || echo "${BP_MODE_LOWERCASE}.")
 export ROOT_DIR=$(cd $(dirname $0) && pwd)
 export OD=${ROOT_DIR}/overlays/${BP_MODE_LOWERCASE}
