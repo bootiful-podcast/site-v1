@@ -4,7 +4,6 @@ set -e
 set -o pipefail
 
 export APP_NAME=site
-
 export BP_MODE=PRODUCTION
 export BP_MODE_LOWERCASE=production
 export ENV_SUB_DOMAIN=$( [ "${BP_MODE_LOWERCASE}" = "production" ] && echo ""  || echo "${BP_MODE_LOWERCASE}.")
@@ -46,12 +45,8 @@ cd $ROOT_DIR/build
 docker images -q $IMAGE_NAME | while read  l ; do docker rmi $l -f ; done
 
 pack build $IMAGE_NAME --builder paketobuildpacks/builder:full --buildpack gcr.io/paketo-buildpacks/nginx:latest  --env PORT=8080
-#image_id=$(docker images -q $)
 
-#docker tag "${image_id}" $IMAGE_NAME
 docker push $IMAGE_NAME
-#echo "pushing ${image_id} to $IMAGE_NAME "
-#echo "tagging ${GCR_IMAGE_NAME}"
 
 export RESERVED_IP_NAME=bootiful-podcast-${APP_NAME}-ip
 gcloud compute addresses list --format json | jq '.[].name' -r | grep $RESERVED_IP_NAME ||  gcloud compute addresses create $RESERVED_IP_NAME --global
