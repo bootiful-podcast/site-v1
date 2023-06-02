@@ -61,6 +61,3 @@ gcloud compute addresses list --format json | jq '.[].name' -r | grep $RESERVED_
 cd $GITHUB_WORKSPACE
 kubectl delete -f deploy/k8s/deployment.yaml || echo "could not find the deployment to delete..."
 kubectl apply -f deploy/k8s
-#cd $OD
-#kustomize edit set image $GCR_IMAGE_NAME=$IMAGE_NAME
-#kustomize build ${OD} | kubectl apply -f -
