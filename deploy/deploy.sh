@@ -55,7 +55,7 @@ docker push $IMAGE_NAME
 echo "pushing ${image_id} to $IMAGE_NAME "
 echo "tagging ${GCR_IMAGE_NAME}"
 
-export RESERVED_IP_NAME=${APP_NAME}-ip
+export RESERVED_IP_NAME=bootiful-podcast-${APP_NAME}-ip
 gcloud compute addresses list --format json | jq '.[].name' -r | grep $RESERVED_IP_NAME ||  gcloud compute addresses create $RESERVED_IP_NAME --global
 
 cd $GITHUB_WORKSPACE
