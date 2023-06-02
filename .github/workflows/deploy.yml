@@ -66,6 +66,9 @@ jobs:
 
       - name: Deploy Desktop
         run: |
+          kubectl get ns/$NS_NAME || kubectl create ns $NS_NAME 
+          kubectl config set-context --current --namespace=$NS_NAME
+          kubectl config view --minify | grep namespace: && echo "found the namespace.."
           cd $GITHUB_WORKSPACE
           export PATH=$GITHUB_WORKSPACE/bin/:$PATH
           mkdir -p $GITHUB_WORKSPACE/bin/
