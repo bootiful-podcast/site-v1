@@ -59,7 +59,7 @@ export RESERVED_IP_NAME=bootiful-podcast-${APP_NAME}-ip
 gcloud compute addresses list --format json | jq '.[].name' -r | grep $RESERVED_IP_NAME ||  gcloud compute addresses create $RESERVED_IP_NAME --global
 
 cd $GITHUB_WORKSPACE
-kubectl delete -f deploy/k8s/deployment.yaml
+kubectl delete -f deploy/k8s/deployment.yaml || echo "could not find the deployment to delete..."
 kubectl apply -f deploy/k8s
 #cd $OD
 #kustomize edit set image $GCR_IMAGE_NAME=$IMAGE_NAME
