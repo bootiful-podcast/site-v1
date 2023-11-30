@@ -43,7 +43,7 @@ jobs:
           echo "${P}" >> $GITHUB_PATH
       
 
-      - uses: 'google-github-actions/auth@v0'
+      - uses: 'google-github-actions/auth@v2'
         with:
           credentials_json: '${{ secrets.GCLOUD_SA_KEY }}'
 
